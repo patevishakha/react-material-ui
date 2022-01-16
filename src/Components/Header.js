@@ -1,16 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
+import HeaderIcons from './HeaderIcons';
+
+import {List,ListItem} from '@material-ui/core';
 import {AppBar,Toolbar,Box, Typography, Grid, IconButton, Badge} from '@material-ui/core';
 import {useScrollTrigger,Drawer} from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import {Menu} from '@material-ui/icons';
-
-
 import DehazeIcon from '@mui/icons-material/Dehaze';
-import HomeIcon from '@mui/icons-material/Home';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import SettingsIcon from '@mui/icons-material/Settings';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -46,13 +45,13 @@ const useStyles = makeStyles({
     },
 
     DrawerStyleClass:{
-      width : '250px',
+      width : '210px',
       height:'100%',
       color : '#000',
       // backgroundImage: 'linear-gradient(147deg, #923cb5 0%, #000000 74%)',
       backgroundImage: 'linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%)',
       textAlign : 'center',
-    
+      fontWeight : 'bold',
     }
 })
 
@@ -60,8 +59,12 @@ function Header() {
   const classes = useStyles();
   const [open,setOpen] = useState(false);
 
-  const handleDrawer = ()=>{
+  const handleDrawerOpen = ()=>{
     setOpen(true);
+  }
+
+  const handleDrawerClose = ()=>{
+    setOpen(false);
   }
 
     return (
@@ -71,51 +74,41 @@ function Header() {
           <Toolbar>
           <Box className={classes.GridClass}> 
                 <Box >         
-                <IconButton onClick={handleDrawer} className={classes.MarginClass}>
-                  <Badge className={classes.BatchColourClass}>
-                      <DehazeIcon/>
-                  </Badge>
-                </IconButton>
+                  <IconButton onClick={handleDrawerOpen} className={classes.MarginClass}>
+                    <Badge className={classes.BatchColourClass}>
+                        <DehazeIcon/>
+                    </Badge>
+                  </IconButton>
                 
-
-                <Drawer
-                  anchor = "left"
-                  open={open}
-                  onClose={()=>{setOpen(false);}}
-                >
-                 <div className={classes.DrawerStyleClass}>
-                    <h4>This is newly Created Drawer</h4>
-                 </div>
-                </Drawer>  
+                  <Drawer
+                    variant = "persistent"
+                    anchor = "left"
+                    open={open}
+                    // onClose={()=>{setOpen(false);}}
+                  >
+                  <div  className={classes.DrawerStyleClass}>
+                      <h3>Newly Created Drawer</h3>
+                      <IconButton  onClick={handleDrawerClose}>
+                        <Badge>
+                            <KeyboardDoubleArrowLeftIcon/>
+                        </Badge>
+                      </IconButton>
+                      
+                      <List>
+                        <ListItem button>Home</ListItem>
+                        <ListItem button>About</ListItem>
+                        <ListItem button>Contact Us</ListItem>
+                      </List>
+                  </div>
+                  </Drawer>  
                 
                 </Box>
                 {/* <Grid item sm></Grid>   */}
                 <Box>
-                    <Typography variant="h4" style={{marginTop:'4px'}}>Call Traffic Controller</Typography>
-                </Box>
-              <Box>
-                    <IconButton>
-                          <Badge badgeContent={2} className={classes.BatchColourClass}>
-                              <NotificationsIcon/>
-                          </Badge>
-                    </IconButton>
-                    <IconButton>
-                          <Badge  className={classes.BatchColourClass}>
-                              <HomeIcon/>
-                          </Badge>
-                    </IconButton>
-                    <IconButton>
-                          <Badge className={classes.BatchColourClass}>
-                              <SettingsIcon/>
-                          </Badge>
-                    </IconButton>
-                    <IconButton>
-                          <Badge className={classes.BatchColourClass}>
-                              <AccountCircleIcon/>
-                          </Badge>
-                    </IconButton>
+                  <Typography variant="h4" style={{marginTop:'4px'}}>Call Traffic Controller</Typography>
                 </Box>
 
+                <HeaderIcons/>
             </Box>
           </Toolbar>
         </AppBar>
