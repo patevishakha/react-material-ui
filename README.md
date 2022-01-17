@@ -1,8 +1,10 @@
 <<<<<<< HEAD
 
 # After Downloading the project run this command :
-npm install react-scripts
+npm install 
 
+## After Downloading the project if get some react scripts error :
+npm install react-scripts
 
 # Getting Started with Create React App
 
