@@ -3,9 +3,16 @@ import { useState } from "react";
 import {Stepper,Step,StepLabel, makeStyles} from "@material-ui/core";
 import {Grid,Paper,Box,Container,CssBaseline,Button,Typography} from "@material-ui/core";
 
+// import Workflowbasicparameters from "./BodyComponents/Workflowbasicparameters";
+// import Lookup from "./BodyComponents/Lookup";
+// import Routing from "./BodyComponents/Routing";
+
 import AllComponent from "./Forms/AllComponent";
-import AllComponent2 from "./Page6/AllComponent2";
-import AllComponent3 from "./Page7/AllComponent3";
+import AllComponent3 from "./Page3/AllComponent3";
+import AllComponent4 from "./Page4/AllComponent4";
+import AllComponent5 from "./Page5/AllComponent5";
+import AllComponent6 from "./Page6/AllComponent6";
+import AllComponent7 from "./Page7/AllComponent7";
 
 
 function getSteps(){
@@ -13,6 +20,9 @@ function getSteps(){
         "Step1",
         "Step2",
         "Step3",
+        "Step4",
+        "Step5",
+        "Step6"
     ];
 }
 
@@ -21,9 +31,15 @@ function getForms(step_no){
         case 0:
             return(<AllComponent/>);
         case 1:
-            return(<AllComponent2/>);
+            return(<AllComponent3/>); 
         case 2:
-            return(<><AllComponent3/></>);    
+            return(<AllComponent4/>);       
+        case 3:
+            return(<AllComponent5/>);
+        case 4:
+            return(<><AllComponent6/></>);
+        case 5:
+            return(<><AllComponent7/></>);                 
         default:
             return "Defalut Case";        
 
@@ -49,7 +65,7 @@ function StepperApi() {
             <Container  component={Box} >
                 <Paper component={Box} p={2}>
                     
-                    {activeStep===3?(
+                    {activeStep===6?(
                         <Typography>THANKS</Typography>
                     ):
                         <>  
@@ -69,7 +85,7 @@ function StepperApi() {
                             </form>
                             <Button style={{marginRight:'2%',marginTop:'2%'}} variant="contained" color="primary" disabled={activeStep===0} onClick={previousStep}>BACK</Button>
                             <Button style={{marginTop:'2%'}} variant="contained" color="primary" onClick={nextStep}>
-                                {activeStep===2 ? "FINISH" : "NEXT"}
+                                {activeStep===5 ? "FINISH" : "NEXT"}
                             </Button>
                         </>
                     }
