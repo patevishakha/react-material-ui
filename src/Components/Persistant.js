@@ -20,8 +20,6 @@ import HeaderIcons from './HeaderIcons';
 import {Main,AppBar ,DrawerHeader} from './PersistantFileStyles';
 import StepperApi from './StepperApi';
 
-import { SidebarData } from './SidebarContent/SidebarData';
-import SidebarMenu from './SidebarContent/SidebarMenu';
 
 const drawerWidth = 240;
 
