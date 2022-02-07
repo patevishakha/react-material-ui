@@ -42,12 +42,6 @@ function FormElement2() {
         })
     }
 
-    const handleShow = (event) => {
-        event.preventDefault();
-        console.log(Values);
-        
-      };
-    
     return (
         
             <form>
@@ -156,10 +150,6 @@ function FormElement2() {
                                 />
                             } 
                             label="Multi Build" />
-
-                        <Button variant="contained" color="primary" type="submit" onClick={handleShow}>
-                            Show
-                        </Button>
                     
             </form>
            

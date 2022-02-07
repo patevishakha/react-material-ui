@@ -13,6 +13,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
 import AllComponent from './Forms/AllComponent';
@@ -89,7 +91,7 @@ export default function Persistant() {
             color : '#000',
 
             // drawer backgrounf colour
-             backgroundColor:'#F5F5F5',   
+             backgroundColor:'#3063A5',   
             //  #5D3FD3 , #1F51FF  ,#673ab7,#512da8 ,2196f3 ,8e24aa ,739AC5
             // backgroundImage: 'linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%)',
          
@@ -97,11 +99,11 @@ export default function Persistant() {
           '& .MuiTypography-root':{
             // text in front of icon 
             fontWeight : 'Bolder',
-            color:'#000',
+            color:'#fff',
           },
           '& .MuiSvgIcon-root':{
             // icon colour
-            color:'#000',
+            color:'#fff',
           }
 
         }}
@@ -129,76 +131,34 @@ export default function Persistant() {
                 <ListItemIcon > <HomeIcon/> </ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItem>
-              
 
-              <Link to="/inbox" className={classes.link}>
-              <ListItem disablePadding 
-                    selected={selectedIndex === 1}
-                    onClick={(event) => handleClick(event, 1)}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Inbox" />
-                </ListItemButton>
-              </ListItem>
-              </Link>
-              
+              <ListItem button component={Link} to="/general" onClick={handlelistopen}>
+              <ListItemIcon > <AssignmentIcon/> </ListItemIcon>
+              <ListItemText primary="General Tab" />
+              {expandlist ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={expandlist} unmountOnExit timeout="auto">
+              <List component="div" style={{ marginLeft: "20px" }}>
+                <ListItem
+                  button component={Link} to="/general/Reports"
+                  selected={selectedIndex === 1}
+                  onClick={(event) => handleClick(event, 1)}
+                >
+                  <ListItemIcon > <SummarizeIcon/> </ListItemIcon>
+                  <ListItemText primary="Reports" />
+                </ListItem>
+          
+              </List>
+            </Collapse>
 
-              <Link to="/drafts" className={classes.link}>
-              <ListItem button 
-                  selected={selectedIndex === 2}
-                  onClick={(event) => handleClick(event, 2)}>
-                <ListItemIcon > <DraftsIcon/> </ListItemIcon>
-                <ListItemText primary="Drafts" />
-              </ListItem>
-              </Link>
-
-              <Link to="/info" className={classes.link}>
+            <Link to="/info" className={classes.link}>
               <ListItem button 
                   selected={selectedIndex === 3}
                   onClick={(event) => handleClick(event, 3)}>
                 <ListItemIcon > <InfoIcon/> </ListItemIcon>
                 <ListItemText primary="Info" />
               </ListItem>
-              </Link> 
-
-            <ListItem button component={Link} to="/newinfo" onClick={handlelistopen}>
-              <ListItemIcon > <InfoIcon/> </ListItemIcon>
-              <ListItemText primary="New Info" />
-              {expandlist ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={expandlist} unmountOnExit timeout="auto">
-              <List component="div" style={{ marginLeft: "20px" }}>
-                <ListItem
-                  button component={Link} to="/newinfo/person1"
-                  selected={selectedIndex === 6}
-                  onClick={(event) => handleClick(event, 6)}
-                >
-                  <ListItemIcon > <PersonIcon/> </ListItemIcon>
-                  <ListItemText primary="Person1" />
-                </ListItem>
-
-                <ListItem
-                  button component={Link} to="/newinfo/person2"
-                  selected={selectedIndex === 4}
-                  onClick={(event) => handleClick(event, 4)}
-                >
-                  <ListItemIcon > <PersonIcon/> </ListItemIcon>
-                  <ListItemText primary="Person2" />
-                </ListItem>
-
-                <ListItem
-                  button component={Link} to="/newinfo/person3"
-                  selected={selectedIndex === 5}
-                  onClick={(event) => handleClick(event, 5)}
-                >
-                  <ListItemIcon > <PersonIcon/> </ListItemIcon>
-                  <ListItemText primary="Person3" />
-                </ListItem>
-              </List>
-            </Collapse>
-
+            </Link> 
 
           </List>
           <Divider />  
@@ -211,14 +171,10 @@ export default function Persistant() {
           <DrawerHeader />
           {/* <div  className={classes.toolbarMargin}/> */}
             <Routes>
-              <Route path="newinfo" element={`This is New Info Page`}/>
               <Route path="/" element={<StepperApi/>}/>
-              <Route path="inbox" element={`This is Inbox Page`}></Route>
-              <Route path="drafts" element={`This is Drafts Page`}/>
-              <Route path="info" element={`This is Infooooo Page`}/>
-              <Route path="/newinfo/person1" element={`This is Info of Person1`}/>
-              <Route path="/newinfo/person2" element={`This is Info of Person2`}/>
-              <Route path="/newinfo/person3" element={`This is Info of Person3`}/>
+              <Route path="general" element={`General Tab`}/>
+              <Route path="general/Reports" element={`This is Info of Reports`}/>
+              <Route path="info" element={`This is Info Page`}/>
             </Routes>
               {/* <AllComponent/> */}
       </Main>
