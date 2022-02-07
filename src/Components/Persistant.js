@@ -21,6 +21,7 @@ import AllComponent from './Forms/AllComponent';
 import HeaderIcons from './HeaderIcons';
 import {Main,AppBar ,DrawerHeader} from './PersistantFileStyles';
 import StepperApi from './StepperApi';
+import Combine from './Report/Combine';
 
 
 const drawerWidth = 240;
@@ -173,7 +174,7 @@ export default function Persistant() {
             <Routes>
               <Route path="/" element={<StepperApi/>}/>
               <Route path="general" element={`General Tab`}/>
-              <Route path="general/Reports" element={`This is Info of Reports`}/>
+              <Route path="general/Reports" element={<Combine/>}/>
               <Route path="info" element={`This is Info Page`}/>
             </Routes>
               {/* <AllComponent/> */}
