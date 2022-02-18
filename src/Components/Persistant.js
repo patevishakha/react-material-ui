@@ -88,6 +88,7 @@ export default function Persistant() {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
+            marginTop : "64px",
             boxSizing: 'border-box',
             color : '#000',
 

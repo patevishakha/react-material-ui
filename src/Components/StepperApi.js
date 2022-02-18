@@ -14,6 +14,20 @@ import AllComponent5 from "./Page5/AllComponent5";
 import AllComponent6 from "./Page6/AllComponent6";
 import AllComponent7 from "./Page7/AllComponent7";
 
+const useStyle = makeStyles(theme=>({
+    
+    rootClass : {
+        '& .MuiPaper-root' : {
+            background : 'rgba(25, 118, 210,0.25)',
+        },
+                
+    },
+    customTextField: {
+        "& input::placeholder": {
+          fontWeight : "bold"
+        }
+      }
+}))
 
 function getSteps(){
     return[
@@ -48,6 +62,7 @@ function getForms(step_no){
 
 function StepperApi() {
 
+    const classes = useStyle();
   const [activeStep, setActiveStep] = useState(0);
   const eachsteps = getSteps();
 
@@ -60,7 +75,7 @@ function StepperApi() {
  
   return (
     <>
-      <Grid container direction="row">
+      <Grid container direction="row" className={`${classes.rootClass} ${classes.customTextField}`}>
       <CssBaseline />
             <Container  component={Box} >
                 <Paper component={Box} p={2}>
