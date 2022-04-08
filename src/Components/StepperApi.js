@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect ,useContext} from "react";
 import {Stepper,Step,StepLabel, makeStyles} from "@material-ui/core";
 import {Grid,Paper,Box,Container,CssBaseline,Button,Typography} from "@material-ui/core";
 
-// import Workflowbasicparameters from "./BodyComponents/Workflowbasicparameters";
-// import Lookup from "./BodyComponents/Lookup";
-// import Routing from "./BodyComponents/Routing";
+import Service1 from "./services/Service1";
+import {Context} from "./GlobalData/Store";
 
 import AllComponent from "./Forms/AllComponent";
 import AllComponent3 from "./Page3/AllComponent3";
@@ -13,6 +12,7 @@ import AllComponent4 from "./Page4/AllComponent4";
 import AllComponent5 from "./Page5/AllComponent5";
 import AllComponent6 from "./Page6/AllComponent6";
 import AllComponent7 from "./Page7/AllComponent7";
+
 
 const useStyle = makeStyles(theme=>({
     
@@ -61,18 +61,30 @@ function getForms(step_no){
 }
 
 function StepperApi() {
-
     const classes = useStyle();
   const [activeStep, setActiveStep] = useState(0);
   const eachsteps = getSteps();
 
-  const nextStep = () => {
+  const [state, setState] = useContext(Context);
+  const id = state.id;
+
+  const nextStep = (id) => {
     setActiveStep(activeStep+1);
+    Service1.updateData(state, id).then((res) => {});
   };
   const previousStep = () => {
     setActiveStep(activeStep-1);
+    Service1.updateData(state, id).then((res) => {});
   };
  
+  useEffect(() => {
+    Service1.getDataById(id)
+      .then((res) => res.data)
+      .then((res) => {
+        setState((prev) => ({ ...prev, ...res }));
+      });
+  }, []);
+
   return (
     <>
       <Grid container direction="row" className={`${classes.rootClass} ${classes.customTextField}`}>
@@ -88,7 +100,7 @@ function StepperApi() {
                                 {
                                     eachsteps.map((step_name,index)=>{
                                         return(
-                                            <Step>
+                                            <Step key={index}>
                                                 <StepLabel>{step_name}</StepLabel>
                                             </Step>
                                         )
@@ -99,7 +111,7 @@ function StepperApi() {
                                 {getForms(activeStep)}
                             </form>
                             <Button style={{marginRight:'2%',marginTop:'2%'}} variant="contained" color="primary" disabled={activeStep===0} onClick={previousStep}>BACK</Button>
-                            <Button style={{marginTop:'2%'}} variant="contained" color="primary" onClick={nextStep}>
+                            <Button style={{marginTop:'2%'}} variant="contained" color="primary" onClick={() => nextStep(id)}>
                                 {activeStep===5 ? "FINISH" : "NEXT"}
                             </Button>
                         </>

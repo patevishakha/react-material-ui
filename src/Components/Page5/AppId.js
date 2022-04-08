@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {Checkbox,FormControlLabel,Grid,makeStyles,Radio,RadioGroup,TextField,} from "@material-ui/core";
-import { useState } from 'react';
-import { FormControl,InputLabel,Select,MenuItem,FormLabel} from '@material-ui/core';
+
+import { Context } from "../GlobalData/Store";
+import Service1 from "../services/Service1";
 
 const useStyles = makeStyles(theme=>({
     groupClass: {
@@ -15,32 +16,32 @@ const useStyles = makeStyles(theme=>({
 
 function AppId() {
     const classes = useStyles();
-      const initialValues = {
-        id:0,
-        radio_appId : "Existing AppId",
-        isCaptureDialPlan : false,
+    const [state, setState] = useContext(Context);
 
-        isRoutingPlan : "No",
-        routing_plan:" ",
+    const handleInputValues = (event, values) => {
+        const { name, value } = event.target;
         
-    }
-    const [Values, setValues] = useState(initialValues);
+        setState({
+        ...state,
+        [name]:
+            name === "isCaptureDialPlan"
+            ? event.target.checked
+            : value,
+        });
+        
+        const id=state.id;
+        Service1.updateData(state, id).then((res) => {});
 
-    const handleChange = (event)=>{
-        const {name,value} = event.target
-        setValues({
-            ...Values,
-            [name] : value
-        })
-        console.log("name : "+name+"--- value : "+value);
-    }
+    };
 
     return (
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6} lg={6}>
-                <RadioGroup value={Values.radio_appId}
+                <RadioGroup value={state.radio_appId
+                }
                     name = "radio_appId"
-                    onChange={handleChange} >
+                    onChange={handleInputValues} >
+
                     <FormControlLabel
                     value="Existing AppId"
                     label="Existing AppId"
@@ -57,8 +58,11 @@ function AppId() {
                 <FormControlLabel
                         control={<Checkbox  color="primary" />}
                         label="Capture Dial Plan?"
-                        value={Values.isCaptureDialPlan}
-                        onChange={handleChange}
+                        name = "isCaptureDialPlan"
+                        
+                        checked={state.isCaptureDialPlan}
+                        value={state.isCaptureDialPlan}
+                        onChange={handleInputValues}
                 />
                 </Grid>
             </Grid>

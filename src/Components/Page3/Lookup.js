@@ -1,15 +1,12 @@
-import React from "react";
+import React , { useContext }from "react";
 import {Checkbox,FormControlLabel,Grid,makeStyles,Radio,RadioGroup,TextField,} from "@material-ui/core";
 import { useState } from 'react';
 import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
 
-// import countries from '../ReusabelComponents/Data/countries';
-// import SearchableDropDown from "../ReusabelComponents/SearchableDropDown";
-
+import { Context } from "../GlobalData/Store";
+import Service1 from "../services/Service1";
   
-  
-  
-  const useStyles=makeStyles((theme)=>({
+const useStyles=makeStyles((theme)=>({
       grid:{
           margin:"1.5em",
           marginBottom:"2em"
@@ -17,36 +14,31 @@ import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
   }))
   
   
-  
-  function Lookup() {
+function Lookup() {
       const classes=useStyles();
-      const initialValues = {
-        id:0,
-        radio_button_value : "Pre Built Number",
-        auto_look_up : false,
-        search_type : " ",
-        country:" ",
-        switch : " ",
-        search_no : 0,
-        quantity : 0,
-        exact : false,
-    }
-    const [Values, setValues] = useState(initialValues);
+    const [state, setState] = useContext(Context);
 
-    const handleChange = (event)=>{
-        const {name,value} = event.target
-        setValues({
-            ...Values,
-            [name] : value
-        })
-        console.log("name : "+name+"--- value : "+value);
-    }
+    const handleInputValues = (event, values) => {
+        const { name, value } = event.target;
+        
+        setState({
+        ...state,
+        [name]:
+            name === "auto_look_up" || name === "exact"
+            ? event.target.checked
+            : value,
+        });
+        
+        const id=state.id;
+        Service1.updateData(state, id).then((res) => {});
+
+    };
 
     return (
             <Grid>
-                <RadioGroup value={Values.radio_button_value}
+                <RadioGroup value={state.radio_button_value}
                     name = "radio_button_value"
-                    onChange={handleChange} >
+                    onChange={handleInputValues} >
                     <FormControlLabel
                     value="BT or Supplier Owned Number"
                     label="BT or Supplier Owned Number"
@@ -72,8 +64,8 @@ import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
                             label="Search Type"
                             id="label-page3-1"
                             name= "search_type"
-                            value={Values.search_type}
-                            onChange={handleChange}
+                            value={state.search_type}
+                            onChange={handleInputValues}
                             >
                                 <MenuItem value="search1">search-type 1</MenuItem>
                                 <MenuItem value="search2">search-type 2</MenuItem>
@@ -90,8 +82,8 @@ import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
                                     label="country"
                                     id="label-page3-2"
                                     name= "country"
-                                    value={Values.country}
-                                    onChange={handleChange}
+                                    value={state.country}
+                                    onChange={handleInputValues}
                                     >
                                         <MenuItem value="India">India</MenuItem>
                                         <MenuItem value="America">America</MenuItem>
@@ -103,18 +95,18 @@ import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
                 
                     <Grid item xs={12} md={6} lg={6}>
                         <FormControl variant="outlined"  size="small" >
-                        <InputLabel id="select-page3-3">Switch </InputLabel>
+                        <InputLabel id="select-page3-3">Switch_box </InputLabel>
                                 <Select
                                     labelId="select-page3-3"
-                                    label="Switch"
+                                    label="switch_box"
                                     id="label-page3-3"
-                                    name= "switch"
-                                    value={Values.switch}
-                                    onChange={handleChange}
+                                    name= "switch_box"
+                                    value={state.switch_box}
+                                    onChange={handleInputValues}
                                     >
-                                        <MenuItem value="Switch1">Switch 1</MenuItem>
-                                        <MenuItem value="Switch2">Switch 2</MenuItem>
-                                        <MenuItem value="Switch3">Switch 3</MenuItem>
+                                        <MenuItem value="switch_box1">switch_box 1</MenuItem>
+                                        <MenuItem value="switch_box2">switch_box 2</MenuItem>
+                                        <MenuItem value="switch_box3">switch_box 3</MenuItem>
                                         
                                 </Select>
                         </FormControl>
@@ -124,25 +116,24 @@ import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
                         <Grid item xs={12} md={6} lg={6}>
                             <TextField
                                 size = 'small'
-                                type="number"
                                 variant="outlined"
                                 label="Search No"
-                                value={Values.search_no}
+                                value={state.search_no}
                                 name= "search_no"
-                                onChange={handleChange}
+                                onChange={handleInputValues}
                             />
                         </Grid> 
                         <Grid item xs={12} md={6} lg={6}>   
                         <TextField
                             size = 'small'
-                            type="number"
                             variant="outlined"
                             label="Quantity"
-                            value={Values.search_no}
-                            name= "search_no"
-                            onChange={handleChange}
+                            value={state.quantity}
+                            name= "quantity"
+                            onChange={handleInputValues}
                             // style={{ width: "75%" }}
                         /> 
+                        
                         </Grid>
                     </Grid>   
 
@@ -151,16 +142,20 @@ import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
                             <FormControlLabel
                                 control={<Checkbox  color="primary" />}
                                 label="Auto Look Up?"
-                                value={Values.auto_look_up}
-                                onChange={handleChange}
+                                checked={state.auto_look_up}
+                                value={state.auto_look_up}
+                                name= "auto_look_up"
+                                onChange={handleInputValues}
                             /> 
                         </Grid>  
                         <Grid item xs={12} md={6} lg={6}>
                             <FormControlLabel
                                 control={<Checkbox  color="primary" />}
                                 label="Exact?"
-                                value={Values.exact}
-                                onChange={handleChange}
+                                checked={state.exact}
+                                value={state.exact}
+                                name = "exact"
+                                onChange={handleInputValues}
                             />
                         </Grid>
                     </Grid>    

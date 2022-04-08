@@ -15,13 +15,15 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
-import AllComponent from './Forms/AllComponent';
+import SearchBarCompo from './SearchBarCompo';
 import HeaderIcons from './HeaderIcons';
 import {Main,AppBar ,DrawerHeader} from './PersistantFileStyles';
 import StepperApi from './StepperApi';
 import Combine from './Report/Combine';
+import Employees from './AccessNo/pages/Employees';
 
 
 const drawerWidth = 240;
@@ -76,6 +78,7 @@ export default function Persistant() {
           <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
             Call Traffic Controller
           </Typography>
+          <SearchBarCompo style={{padding : "2px"}}/>
           <HeaderIcons/>
         </Toolbar>
       </AppBar>
@@ -143,11 +146,29 @@ export default function Persistant() {
               <List component="div" style={{ marginLeft: "20px" }}>
                 <ListItem
                   button component={Link} to="/general/Reports"
-                  selected={selectedIndex === 1}
-                  onClick={(event) => handleClick(event, 1)}
+                  selected={selectedIndex === 2}
+                  onClick={(event) => handleClick(event, 2)}
                 >
                   <ListItemIcon > <SummarizeIcon/> </ListItemIcon>
                   <ListItemText primary="Reports" />
+                </ListItem>
+
+                <ListItem
+                  button component={Link} to="/general/WorkFlow"
+                  selected={selectedIndex === 3}
+                  onClick={(event) => handleClick(event, 3)}
+                >
+                  <ListItemIcon > <DisplaySettingsIcon/> </ListItemIcon>
+                  <ListItemText primary="WorkFlow" />
+                </ListItem>
+
+                <ListItem
+                  button component={Link} to="/general/AccessNo"
+                  selected={selectedIndex === 4}
+                  onClick={(event) => handleClick(event, 4)}
+                >
+                  <ListItemIcon > <AssignmentIcon/> </ListItemIcon>
+                  <ListItemText primary="Access No" />
                 </ListItem>
           
               </List>
@@ -155,8 +176,8 @@ export default function Persistant() {
 
             <Link to="/info" className={classes.link}>
               <ListItem button 
-                  selected={selectedIndex === 3}
-                  onClick={(event) => handleClick(event, 3)}>
+                  selected={selectedIndex === 5}
+                  onClick={(event) => handleClick(event, 5)}>
                 <ListItemIcon > <InfoIcon/> </ListItemIcon>
                 <ListItemText primary="Info" />
               </ListItem>
@@ -173,9 +194,12 @@ export default function Persistant() {
           <DrawerHeader />
           {/* <div  className={classes.toolbarMargin}/> */}
             <Routes>
-              <Route path="/" element={<StepperApi/>}/>
+              <Route path="/" element={`Home Tab`}/>
               <Route path="general" element={`General Tab`}/>
               <Route path="general/Reports" element={<Combine/>}/>
+              <Route path="general/WorkFlow" element={<StepperApi/>}/>
+              <Route path="general/AccessNo" element={<Employees/>}/>
+
               <Route path="info" element={`This is Info Page`}/>
             </Routes>
               {/* <AllComponent/> */}

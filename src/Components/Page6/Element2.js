@@ -1,70 +1,64 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { useState } from 'react'
 import { TextField } from '@material-ui/core';
-// import 'date-fns';
-// import DateFnsUtils from '@date-io/date-fns';
-// import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 
+import { Context } from "../GlobalData/Store";
+import Service1 from "../services/Service1";
 
 function Element2() {
-    const initialValues = {
-        id:0,
-        HT_RTO_Date : " ",
-        Order_Placed_To_Ptt_Date : " ",
-        Ptt_Service_Delivered_Date : " ",
-    }
-    const [Values, setValues] = useState(initialValues);
+    const [state, setState] = useContext(Context);
 
-    const handleDateChange = (event)=>{
-        const {name,value} = event.target
-        setValues({
-            ...Values,
-            [name] : value
-        })
-        console.log("name : "+name+"--- value : "+value);
-    }
+    const handleInputValues = (event, values) => {
+        const { name, value } = event.target;
+        
+        setState({
+        ...state,
+        [name]: value,
+        });
+        
+        const id=state.id;
+        Service1.updateData(state, id).then((res) => {});
 
-    const handleShow = (event) => {
-        event.preventDefault();
-        console.log(Values);
-      };
+    };
 
     return (
         <>
             <TextField
-                            id="date1"
+                            id="date6-1"
                             label="HT RTO Date : "
                             type="date"
-                            value={Values.HT_RTO_Date}
+                            value={state.ht_RTO_Date}
+                            name= "ht_RTO_Date"
                             InputLabelProps={{
                             shrink: true,
                             }}
-                            name= "HT_RTO_Date"
-                            onChange={handleDateChange}
+                            onChange={handleInputValues}
             />
 
             <TextField
-                            id="date2"
+                            id="date6-2"
                             label="Order Placed To Ptt Date : "
                             type="date"
-                            value={Values.Order_Placed_To_Ptt_Date}
+                            
                             InputLabelProps={{
                             shrink: true,
                             }}
-                            name= "Order_Placed_To_Ptt_Date"
-                            onChange={handleDateChange}
+                            value={state.order_Placed_To_Ptt_Date}
+                            name= "order_Placed_To_Ptt_Date"
+                            onChange={handleInputValues}
             />
             
             <TextField
-                            id="date3"
+                            id="date6-3"
                             label="Ptt Service Delivered Date : "
                             type="date"
-                            value={Values.Ptt_Service_Delivered_Date}
+                           
                             InputLabelProps={{
                             shrink: true,
                             }}
-                            name= "Ptt_Service_Delivered_Date"
-                            onChange={handleDateChange}
+                            value={state.ptt_Service_Delivered_Date}
+                            name= "ptt_Service_Delivered_Date"
+                            onChange={handleInputValues}
             />
 
             {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>

@@ -1,22 +1,26 @@
 import React from 'react'
-import {useState} from 'react'
+import {useContext} from 'react'
 import { FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
 
-function Element3() {
-    const initialValues = {
-        id:0,
-        Created_Access_No:'',
-    }
-    const [Values, setValues] = useState(initialValues);
+import { Context } from "../GlobalData/Store";
+import Service1 from "../services/Service1";
 
-    const handleSelectChange = (event)=>{
-        const {name,value} = event.target
-        setValues({
-            ...Values,
-            [name] : value
-        })
-        console.log("name : "+name+"--- value : "+value);
-    }
+function Element3() {
+    const [state, setState] = useContext(Context);
+
+    const handleInputValues = (event, values) => {
+        const { name, value } = event.target;
+        
+        setState({
+        ...state,
+        [name]: value,
+        });
+        
+        const id=state.id;
+        Service1.updateData(state, id).then((res) => {});
+
+    };
+    
     return (
           <div>
             <form>
@@ -26,9 +30,9 @@ function Element3() {
                             labelId="select-label3"
                             label="Created Access No"
                             id="select3"
-                            value={Values.Created_Access_No}
-                            name= "Created_Access_No"
-                            onChange={handleSelectChange}
+                            value={state.created_Access_No}
+                            name= "created_Access_No"
+                            onChange={handleInputValues}
                             >
                                 <MenuItem value="Value1">Value 1</MenuItem>
                                 <MenuItem value="Value2">Value 2</MenuItem>

@@ -1,10 +1,12 @@
 import {Grid ,TextField } from '@material-ui/core';
 import { FormControl,InputLabel,Select,MenuItem,FormControlLabel,Checkbox,Button} from '@material-ui/core';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { makeStyles,ThemeProvider } from '@material-ui/core';
 import React from 'react'
 import theme from '../Theme';
 
+import { Context } from "../GlobalData/Store";
+import Service1 from "../services/Service1";
 
 
  const useStyle = makeStyles(theme=>({
@@ -17,30 +19,31 @@ import theme from '../Theme';
      }
  }))
  
-
-const initialValues = {
-    id:0,
-    // tpRadioButtonGender : 'male',
-    requestNO:'',
-    countryOfOrigin : '',
-    inboundAccessType : '',
-    isMultiBuild : false,
-    bulkAccessNoWorkflow : '',
-    SIOAcceptatnceDate : '',
-    customerCommitDate : '',
-}
-
 function FormElement2() {
     const classes = useStyle();
-    const [Values, setValues] = useState(initialValues);
 
-    const handleInputs = (event,values)=>{
-        const {name,value} = event.target
-        setValues({
-            ...Values,
-            [name] : value
-        })
-    }
+    const [state, setState] = useContext(Context);
+
+    const handleInputValues = (event, values) => {
+        const { name, value } = event.target;
+    
+        if (name === "isMultiBuild") {
+            setState({
+                ...state,
+             ["isMultiBuild"]:event.target.checked
+              });
+        }
+        else{
+        setState({
+            ...state,
+            [name]: value,
+        });
+        }
+        
+        const id=state.id;
+        Service1.updateData(state, id).then((res) => {});
+
+    };
 
     return (
         
@@ -49,107 +52,102 @@ function FormElement2() {
                         size = 'small'
                         variant="outlined"
                         label="Request No"
-                        value={Values.requestNO}
+                        value={state.requestNO}
                         name= "requestNO"
-                        onChange={handleInputs}
+                        onChange={handleInputValues}
                     />
-                    <FormControl  variant="outlined"  size="small" onChange={handleInputs}>
+                    <FormControl  variant="outlined"  size="small" >
                             <InputLabel id="select-label1">Country Of Origin</InputLabel>
                             <Select
                                 labelId="select-label1"
-                                value={Values.countryOfOrigin}
+                                value={state.countryOfOrigin}
                                 id="select1"
                                 label="countryOfOrigin"
                                 name= "countryOfOrigin"
-                                onChange={handleInputs}
+                                onChange={handleInputValues}
                             >
                                 <MenuItem value="Value1">Value 1</MenuItem>
                                 <MenuItem value="Value2">Value 2</MenuItem>
                                 <MenuItem value="Value3">Value 3</MenuItem>
 
-                            </Select>
-                            
+                            </Select> 
                     </FormControl>
                     
-                        <FormControl variant="outlined"  size="small" >
-                            <InputLabel id="select-label2">Inbound Access Type</InputLabel>
-                            <Select
+                    <FormControl variant="outlined"  size="small" >
+                        <InputLabel id="select-label2">Inbound Access Type</InputLabel>
+                        <Select
                                 labelId="select-label2"
-                                value={Values.inboundAccessType}
+                                value={state.inboundAccessType}
                                 label="inboundAccessType"
                                 id="select2"
                                 name= "inboundAccessType"
-                                onChange={handleInputs}
+                                onChange={handleInputValues}
                             >
                                 <MenuItem value="Value1">Value 1</MenuItem>
                                 <MenuItem value="Value2">Value 2</MenuItem>
                                 <MenuItem value="Value3">Value 3</MenuItem>
                                 
-                            </Select>
-                        </FormControl>
+                        </Select>
+                    </FormControl>
 
-                        <FormControl variant="outlined"  size="small" >
-                            <InputLabel id="select-label3">Bulk Access No Workflow</InputLabel>
+                    <FormControl variant="outlined"  size="small" >
+                        <InputLabel id="select-label3">Bulk Access No Workflow</InputLabel>
                             <Select
                                 labelId="select-label3"
-                                value={Values.bulkAccessNoWorkflow}
+                                value={state.bulkAccessNoWorkflow}
                                 label="bulkAccessNoWorkflow"
                                 id="select3"
                                 name= "bulkAccessNoWorkflow"
-                                onChange={handleInputs}
+                                onChange={handleInputValues}
                             >
                                 <MenuItem value={1}>NO 1</MenuItem>
                                 <MenuItem value={2}>NO 2</MenuItem>
                                 <MenuItem value={3}>NO 3</MenuItem>
                                 
                             </Select>
-                        </FormControl>
+                    </FormControl>
 
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6} lg={6}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={6} lg={6}>
                                   
-                                <TextField
-                            size = 'small'
-                            id="date1"
-                            label="SIO Acceptatnce Date"
-                            value={Values.SIOAcceptatnceDate}
-                            type="date"
-                            // defaultValue="2017-05-24"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            name= "SIOAcceptatnceDate"
-                            onChange={handleInputs}
+                            <TextField
+                                label="SIO Acceptatnce Date"
+                                type="date"
+                                value={state.sioAcceptatnceDate}
+                                // defaultValue="2017-05-24"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                name= "sioAcceptatnceDate"
+                                onChange={handleInputValues}
+                                // onChange={(e)=>setForm({SIOAcceptatnceDate:e.target.value})}
             
-                        />
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={6}>
-                                  <TextField
-                            id="date1"
-                            label="Customer Commit Date"
-                            type="date"
-                            value={Values.customerCommitDate}
-                            // defaultValue="2017-05-24"
-                            InputLabelProps={{
-                            shrink: true,
-                            }}
-                            name= "customerCommitDate"
-                            onChange={handleInputs}
-                        />
-                            </Grid>
-                        </Grid>  
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6} lg={6}>
+                            <TextField
+                                label="Customer Commit Date"
+                                type="date"
+                                value={state.customerCommitDate}
+                                // defaultValue="2017-05-24"
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                name= "customerCommitDate"
+                                onChange={handleInputValues}
+                                // onChange={(e)=>setForm({customerCommitDate:e.target.value})}
+                            />
+                        </Grid>
+                    </Grid>  
 
-                        
-                        
-                        <FormControlLabel 
-                            control={
-                                <Checkbox  
-                                    value={Values.isMultiBuild}
-                                    name="isMultiBuild"
-                                    onChange={handleInputs}
-                                />
-                            } 
-                            label="Multi Build" />
+                    <FormControlLabel
+                        control={<Checkbox  color="primary" />}
+                        label="Multi Build"
+                        checked={state.isMultiBuild}
+                        value={state.isMultiBuild}
+                        name= "isMultiBuild"
+                        onChange={handleInputValues}
+                    /> 
                     
             </form>
            
