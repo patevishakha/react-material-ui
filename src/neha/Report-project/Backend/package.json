@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "back.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "csv-writer": "^1.6.0",
+    "express": "^4.17.1",
+    "fast-csv": "^4.3.6",
+    "fetch": "^1.1.0",
+    "get-json": "^1.0.1",
+    "global-fetch": "^0.2.2",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.2.3",
+    "nodemon": "^2.0.15",
+    "response": "^0.18.0",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
