@@ -23,8 +23,9 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#eee",
   },
   typographyClass: {
-    fontWeight: "bold",
+   // fontWeight: "bold",
   },
+
   rootClass: {
     "& .MuiFormControl-root": {
       width: "90%",
@@ -43,7 +44,7 @@ function Combine() {
     console.log(state1);
   };
   const [state1, setState1] = useContext(Context1);
-
+//"#d7abf5" 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -51,20 +52,20 @@ function Combine() {
         <Paper
           component={Box}
           p={4}
-          style={{ background: "rgba(25, 118, 210,0.25)" }}
+          style={{ background: "#caabf6"}}
         >
           <form className={classes.rootClass}>
             <Grid container>
               <Grid container item xs={12}>
-                <Grid item lg={4} sm={6} xs={12}>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
                   <Col1 />
                 </Grid>
-                <Grid item lg={4} sm={6} xs={12}>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
                   <Col2 />
                 </Grid>
               </Grid>
-              <Grid container item xs={12}>
-                <Grid item xs={12}>
+              <Grid>
+                <Grid>
                   <Col3 />
                 </Grid>
               </Grid>

@@ -6,6 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@mui/system/Box";
 import { Context1 } from "../GlobalData/Storereport";
+import Grid from "@mui/material/Grid"
 export const Col1 = () => {
   const [state1, setState1] = useContext(Context1);
 
@@ -15,8 +16,6 @@ export const Col1 = () => {
       ...state1,
       [name]: event.target.checked,
     });
-    // console.log("name : " + name + "--- value : " + value);
-    // console.log(event.target.checked);
   };
   const revenue_owners_data = [
     { title: "RO_334032_new", uid: 66351000817457 },
@@ -33,7 +32,7 @@ export const Col1 = () => {
     { title: "CORP_Test1", uid: 10361692731535 },
   ];
   return (
-    <div>
+    <Grid>
       <Autocomplete
         multiple
         variant="standard"
@@ -70,8 +69,6 @@ export const Col1 = () => {
           });
         }}
       />
-      <br />
-      
-    </div>
+    </Grid>
   );
 };
