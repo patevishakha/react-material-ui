@@ -3,14 +3,14 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const http = require("http");
-const fs = require("fs");
-const fastcsv = require("fast-csv");
+//const fs = require("fs");
 const logger = require("morgan");
 
-url = "http://jsonplaceholder.typicode.com/todos";
-var url_to_hit_service = "";
-port = 8080;
-//CROSS ORIGIN
+let url = "http://jsonplaceholder.typicode.com/todos";
+let restPathAndQuery;
+let options ={};
+let appPort = 8083;
+
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -27,113 +27,96 @@ app.get("/", (req, res) => {
 });
 
 const generateId = () => {
-  //The static Date.now() method returns the number of milliseconds
-  //elapsed since January 1, 1970 00:00:00 UTC.
   return Date.now() + Math.random().toString().substring(2, 3);
 };
 
-const generateUrl = (mon, day, year, product_type_n, product_type_i, corps) => {
-  url_to_hit_service =
-    "http://localhost:7001/vlp-nsr-rest/reporting/sync?REPORT_TYPE=CUSTOMER_ACCESS_NUMBER&REPORT_FORMAT=csv&REPORT_ID=" +
+const generatePathAndParameters = (mon, day, year, product_type_n, product_type_i, corps,revenue_owners) => {    
+options ={
+  hostname: '',
+  port: 82,
+  path: "",
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/xml'
+  }
+}
+
+restPathAndQuery = "" +
     generateId() +
     "&selectedCols=none" +
-    "&selectedDateFormat=" +
-    (mon % 2) +
-    "F" +
-    (day % 2) +
-    "F" +
-    year +
-    "&selectedCorps=" +
-    corps[0].uid +
-    "&selectedProductTypes=" +
-    product_type_n +
-    "selectedProductTypes=" +
-    product_type_i;
-  // console.log(url_to_hit_service);
-  // return url_to_hit_service;
+    "&selectedDateFormat=" + (mon % 2) + "F" + (day % 2) + "F" + year;
+    let tempQuery;
+    if(corps!=null && corps.length!=0){
+      restPathAndQuery += corps.reduce((accumulator,currVal,index)=>{
+        if(index==0) return accumulator+currVal.uid;
+        return accumulator+"&selectedCorps="+currVal.uid;
+      },"&selectedCorps=");
+    }
+    if(revenue_owners!=null && revenue_owners.length!=0){
+      restPathAndQuery += revenue_owners.reduce((accumulator,currVal,index)=>{
+        if(index==0) return accumulator+currVal.uid;
+        return accumulator+"&selectedROs="+currVal.uid;
+      },"&selectedROs=");
+    }
+    restPathAndQuery += "&selectedProductTypes=" + product_type_n;
+    //+ "selectedProductTypes=" + product_type_i;
+
+    options.path = restPathAndQuery;
+    console.log(`fetching data from ${options.hostname}:${options.port}${restPathAndQuery}`);
 };
 
-app.post("/create", function (req, res) {
-  console.log(req.body);
+app.post("/create", function(req,res){
+  let corps;
+  let revenue_owners;
   const created_date_from = new Date(req.body.date_created_from);
   const product_type_n = req.body.product_type_n_i_col1 ? 1 : 0;
   const product_type_i = req.body.product_type_i_i_col1 ? 1 : 0;
-  const corps = req.body.corps;
-  generateUrl(
+  if(req.body.hasOwnProperty("corps")){
+     corps= req.body.corps;
+  }
+  if(req.body.hasOwnProperty("revenue_owners")){
+    revenue_owners=req.body.revenue_owners;
+  }
+  generatePathAndParameters(
     created_date_from.getUTCMonth(),
     created_date_from.getUTCDate(),
     created_date_from.getUTCFullYear(),
     product_type_n,
     product_type_i,
-    corps
+    corps,
+    revenue_owners
   );
-});
-//THIS IS THE METHOD I TESTED WHEN I AM WORKING
-//THIS ACCEPTS A API URL ABOVE COMMENTED
-// //AND MAKES A REPORT
 
-url = "http://localhost:8086/vlp-nsr-rest/reporting/sync";
-const getJSON = (url, callback) => {
-  console.log("in get JSON", url_to_hit_service);
-  http
-    .request(url, function (res) {
-      var body = [];
-      res.headers = {
-        "content-type": "application/octet-stream",
-      };
-      res.on("data", function (chunk) {
-        body.push(chunk);
-      });
+  prepareDataForPost().then((data)=>{
+    res.send(data);
+  }).catch(err => {
+    console.error("An error occured processing data");
+  })
+}
+);
 
-      res.on("end", function () {
-        //var data = JSON.parse(body.toString());
-        var data = body.toString();
-        callback(null, data);
-      });
-
-      res.on("error", callback);
+function prepareDataForPost(){
+    return new Promise((resolve,reject)=>{
+      http
+      .request(
+        options,
+        function (response) {
+          let body = "";
+          response.on("data", function (chunk) {
+            body += chunk;
+          });
+          response.on("end", function () {
+            resolve(body.toString());
+          });
+          response.on("error", (err)=>{
+            reject("An error occurred fetching data");
+          });
+        }
+      )
+      .end();
     })
-    .end();
-};
+}
 
-// url = "http://1deacd25-cd16-42b8-b78b-3cba47200183.mock.pstmn.io/sample_api";
-// const getJSON = (url, callback) => {
-//   // console.log(url_to_hit_service);
-//   http
-//     .request(
-//       {
-//         url: url,
-//         // headers: { "Content-Type": "application/octet-stream" },
-//       },
-//       function (res) {
-//         // res.setEncoding("binary");
-//         var body = "";
-//         res.on("data", function (chunk) {
-//           body += chunk;
-//           console.log(body);
-//           console.log("\n");
-//         });
+app.listen(appPort, console.log(`Server started on port ${appPort}`));
 
-//         res.on("end", function () {
-//           var buffer = Buffer.concat(body);
-//           console.log(buffer.toString("base64"));
-//           callback(null, body);
-//         });
-
-//         res.on("error", callback);
-//       }
-//     )
-//     .end();
-// };
-
-app.listen(port, console.log(`Server started on port ${port}`));
-getJSON(url, function (err, data) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-  // const ws = fs.createWriteStream("report.csv");
-  // fastcsv.write(data).pipe(ws);
-});
-
-module.exports = getJSON;
+//module.exports = getJSON;
