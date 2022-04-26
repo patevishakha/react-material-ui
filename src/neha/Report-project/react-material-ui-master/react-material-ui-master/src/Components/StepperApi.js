@@ -16,12 +16,18 @@ import AllComponent7 from "./Page7/AllComponent7";
 
 const useStyle = makeStyles(theme=>({
     
-    rootClass : {
+    rootClass : {   
         '& .MuiPaper-root' : {
-            background : 'rgba(25, 118, 210,0.25)',
+            background : '#caabf6',
+            },
+        '& .MuiStepIcon-root.MuiStepIcon-completed': {
+    color: '#5514B4',
+},
+  '& .MuiStepIcon-root.MuiStepIcon-active': {
+    color: '#5514B4',
         },
-                
-    },
+      
+},
     customTextField: {
         "& input::placeholder": {
           fontWeight : "bold"
@@ -89,18 +95,18 @@ function StepperApi() {
     <>
       <Grid container direction="row" className={`${classes.rootClass} ${classes.customTextField}`}>
       <CssBaseline />
-            <Container  component={Box} >
-                <Paper component={Box} p={2}>
+            <Container  component={Box}  >
+                <Paper component={Box} p={2}  >
                     
                     {activeStep===6?(
                         <Typography>THANKS</Typography>
                     ):
                         <>  
-                            <Stepper activeStep={activeStep}>
+                            <Stepper activeStep={activeStep} >
                                 {
                                     eachsteps.map((step_name,index)=>{
                                         return(
-                                            <Step key={index}>
+                                            <Step key={index} style={{color:"#5514B4"}}>
                                                 <StepLabel>{step_name}</StepLabel>
                                             </Step>
                                         )
@@ -110,8 +116,8 @@ function StepperApi() {
                             <form>
                                 {getForms(activeStep)}
                             </form>
-                            <Button style={{marginRight:'2%',marginTop:'2%'}} variant="contained" color="primary" disabled={activeStep===0} onClick={previousStep}>BACK</Button>
-                            <Button style={{marginTop:'2%'}} variant="contained" color="primary" onClick={() => nextStep(id)}>
+                            <Button style={{marginRight:'2%',marginTop:'2%',backgroundColor:"#5514B4",color:"#FFF"}} variant="contained" disabled={activeStep===0} onClick={previousStep}>BACK</Button>
+                            <Button style={{marginTop:'2%' ,backgroundColor:"#5514B4",color:"#FFF"}} variant="contained"   onClick={() => nextStep(id)}>
                                 {activeStep===5 ? "FINISH" : "NEXT"}
                             </Button>
                         </>

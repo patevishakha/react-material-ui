@@ -5,8 +5,15 @@ const theme = createTheme({
     //   primary : {
     //     main : '#6A359C',
     //     light : '#e7feff'
+palette: {
+    primary: {main:'#5514B4'},
+  },
 
-
+// typography: {
+//     fontFamily: [
+//       "BT Font Regular", "Calibri", "Arial", "sans-serif"
+//     ].join(",")
+//   }
         
     //   },
     //   secondary: {

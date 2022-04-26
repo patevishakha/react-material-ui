@@ -79,7 +79,7 @@ export default function Persistant() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} style={{backgroundColor:"#5514B4"}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -110,7 +110,7 @@ export default function Persistant() {
               color: "#000",
 
               // drawer backgrounf colour
-              backgroundColor: "#3063A5",
+              backgroundColor: "#8433BA",
               //  #5D3FD3 , #1F51FF  ,#673ab7,#512da8 ,2196f3 ,8e24aa ,739AC5
               // backgroundImage: 'linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%)',
             },
