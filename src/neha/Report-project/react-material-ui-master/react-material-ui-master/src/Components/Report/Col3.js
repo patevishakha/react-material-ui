@@ -297,31 +297,7 @@ export const Col3 = () => {
             >
               submit
             </Button>
-            <Dialog
-              // fullScreen={fullScreen}
-              open={open}
-              aria-labelledby="responsive-dialog-title"
-            >
-              <DialogTitle id="responsive-dialog-title">
-                {"Downloading in progress..."}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText>please wait...</DialogContentText>
-              </DialogContent>
-            </Dialog>
-            {/* <Button onClick={downloadCsv}>download</Button>
-          <Dialog
-            // fullScreen={fullScreen}
-            open={open}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogTitle id="responsive-dialog-title">
-              {"Downloading in progress..."}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>please wait...</DialogContentText>
-            </DialogContent>
-          </Dialog> */}
+            
           </Grid>
         </Grid>
       </Grid>
