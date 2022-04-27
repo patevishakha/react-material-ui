@@ -43,7 +43,9 @@ export const Col3 = () => {
     date: Date,
     selectedDates: Array<Date | null>,
     pickersDayProps: PickersDayProps<Date>
-  
+    // date: "",
+    // selectedDates: [],
+    // pickersDayProps: PickersDayProps<Date>
   ) => {
     return (
       <PickersDay
@@ -119,11 +121,14 @@ export const Col3 = () => {
           <br />
           <Typography
             align="left"
-            style={{ marginLeft: "24px", fontWeight: "bold" }}
+            style={{
+              // marginLeft: "24px",
+              fontWeight: "bold",
+            }}
           >
-            Product Type
+            Product Type:
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", ml: 4 }}>
             <FormGroup>
               <FormControlLabel
                 // sx={{ m: 15 }}
@@ -161,11 +166,14 @@ export const Col3 = () => {
           {/* <InputLabel>Additional Parameters</InputLabel> */}
           <Typography
             align="left"
-            style={{ marginLeft: "24px", fontWeight: "bold" }}
+            style={{
+              // marginLeft: "24px",
+              fontWeight: "bold",
+            }}
           >
-            Additional Parameters
+            Additional Parameters:
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", ml: 4 }}>
             <FormGroup>
               <FormControlLabel
                 // sx={{ m: 1 }}
@@ -199,11 +207,14 @@ export const Col3 = () => {
           <br />
           <Typography
             align="left"
-            style={{ marginLeft: "24px", fontWeight: "bold" }}
+            style={{
+              //marginLeft: "24px",
+              fontWeight: "bold",
+            }}
           >
-            Gaining Suppliers
+            Gaining Suppliers:
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", ml: 4 }}>
             <FormGroup>
               <FormControlLabel
                 // sx={{ m: 1 }}
