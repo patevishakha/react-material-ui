@@ -43,9 +43,7 @@ export const Col3 = () => {
     date: Date,
     selectedDates: Array<Date | null>,
     pickersDayProps: PickersDayProps<Date>
-    // date: "",
-    // selectedDates: [],
-    // pickersDayProps: PickersDayProps<Date>
+  
   ) => {
     return (
       <PickersDay
