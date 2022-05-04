@@ -52,7 +52,7 @@ function Combine() {
         <Paper
           component={Box}
           p={4}
-          style={{ background: "#caabf6"}}
+          style={{ background: "#e8dbfb"}}
         >
           <form className={classes.rootClass}>
             <Grid container>
