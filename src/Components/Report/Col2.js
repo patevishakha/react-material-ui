@@ -1,67 +1,72 @@
-import React, {useState,useEffect} from 'react'
-import  TextField  from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete'; 
-import  InputLabel  from '@material-ui/core/InputLabel';
-import  FormControlLabel  from '@material-ui/core/FormControlLabel';
-import  Checkbox  from '@material-ui/core/Checkbox';
-import  Box  from '@mui/system/Box';
-
+import React, { useState, useEffect, useContext } from "react";
+import { TextField } from "@material-ui/core";
+import Autocomplete from "@mui/material/Autocomplete";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Box from "@mui/system/Box";
+import { films } from "./Datafilms";
+import { Context1 } from "../GlobalData/Storereport";
 export const Col2 = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-  fetch("http://localhost:5000/Account")
-  .then((response) => response.json())
-  .then((data) => setData(data));
-  //console.log(data);
-  });
-  
-  const [data2, setData2] = useState([]);
-  useEffect(() => {
-  fetch("http://localhost:5000/CC")
-  .then((response) => response.json())
-  .then((data2) => setData2(data2));
-  //console.log(data);
-  });
-    return (
-        <div>
-            <Autocomplete
-        
-        multiple
+  const [state1, setState1] = useContext(Context1);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    // console.log(event)
+    setState1({
+      ...state1,
+      [name]: event.target.checked,
+    });
+  };
+  return (
+    <div>
+      <Autocomplete
+        multiple={true}
         variant="standard"
-        options={data}
-        //getOptionLabel={(option) => option.CO}
-        
+        options={films}
+        color="primary"
+        getOptionLabel={(option) => (option.title ? option.title : "")}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField
             {...params}
+            name="country_code"
             label="Country Code"
-            
+            variant="outlined"
           />
         )}
+        value={state1.country_code}
+        onChange={(e, v) => {
+          // console.log(v)
+          setState1({
+            ...state1,
+            ["country_code"]: v,
+          });
+        }}
       />
       <Autocomplete
-        
-        multiple
-        
-        options={data2}
-        //getOptionLabel={(option) => option.title}
-        style={{maxHeight: 90, overflow: 'auto'}}
+        multiple={true}
+        variant="standard"
+        options={films}
+        value={state1.inbound_accesstype}
+        color="primary"
+        getOptionLabel={(option) => (option.title ? option.title : "")}
         filterSelectedOptions
         renderInput={(params) => (
-          <TextField 
+          <TextField
             {...params}
+            name="inbound_accesstype"
             label="Inbound Access type"
-            
+            variant="outlined"
           />
         )}
+        onChange={(e, v) => {
+          // console.log(v)
+          setState1({
+            ...state1,
+            ["inbound_accesstype"]: v,
+          });
+        }}
       />
-      <br/>
-      <Box>
-            <InputLabel sx={{m:1}}>Product Type </InputLabel>
-                <FormControlLabel sx={{m:1}} control={<Checkbox defaultChecked />} label="National" />
-                <FormControlLabel sx={{m:1}} control={<Checkbox />} label="International" />
-            </Box>
-        </div>
-    )
-}
+    </div>
+  );
+};

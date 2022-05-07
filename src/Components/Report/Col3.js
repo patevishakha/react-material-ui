@@ -1,166 +1,291 @@
-import React, {useState} from 'react'
-import  TextField  from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete'; 
-import  InputLabel  from '@material-ui/core/InputLabel';
-import  FormControlLabel  from '@material-ui/core/FormControlLabel';
-import  Checkbox  from '@material-ui/core/Checkbox';
-import  Box  from '@mui/system/Box';
+import React, { useState, useContext } from "react";
 
+import { TextField } from "@material-ui/core";
+import Autocomplete from "@mui/material/Autocomplete";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import { Checkbox } from "@material-ui/core";
+import Box from "@mui/system/Box";
+import Grid from "@mui/material/Grid";
+import FormGroup from "@mui/material/FormGroup";
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+import { Button } from "@mui/material";
+import { Context1 } from "../GlobalData/Storereport";
+
+import FileDownload from "js-file-download";
+import { initialValues } from "../GlobalData/Storereport";
+import axios from "axios";
+import theme from "../Theme";
+
+import { makeStyles } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+
+import { ThemeProvider } from "@material-ui/core/styles";
 export const Col3 = () => {
-    
-    const top100Films = [
-        { title: 'The Shawshank Redemption', year: 1994 },
-        { title: 'The Godfather', year: 1972 },
-        { title: 'The Godfather: Part II', year: 1974 },
-        { title: 'The Dark Knight', year: 2008 },
-        { title: '12 Angry Men', year: 1957 },
-        { title: "Schindler's List", year: 1993 },
-        { title: 'Pulp Fiction', year: 1994 },
-        {
-          title: 'The Lord of the Rings: The Return of the King',
-          year: 2003,
-        },
-        { title: 'The Good, the Bad and the Ugly', year: 1966 },
-        { title: 'Fight Club', year: 1999 },
-        {
-          title: 'The Lord of the Rings: The Fellowship of the Ring',
-          year: 2001,
-        },
-        {
-          title: 'Star Wars: Episode V - The Empire Strikes Back',
-          year: 1980,
-        },
-        { title: 'Forrest Gump', year: 1994 },
-        { title: 'Inception', year: 2010 },
-        {
-          title: 'The Lord of the Rings: The Two Towers',
-          year: 2002,
-        },
-        { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-        { title: 'Goodfellas', year: 1990 },
-        { title: 'The Matrix', year: 1999 },
-        { title: 'Seven Samurai', year: 1954 },
-        {
-          title: 'Star Wars: Episode IV - A New Hope',
-          year: 1977,
-        },
-        { title: 'City of God', year: 2002 },
-        { title: 'Se7en', year: 1995 },
-        { title: 'The Silence of the Lambs', year: 1991 },
-        { title: "It's a Wonderful Life", year: 1946 },
-        { title: 'Life Is Beautiful', year: 1997 },
-        { title: 'The Usual Suspects', year: 1995 },
-        { title: 'Léon: The Professional', year: 1994 },
-        { title: 'Spirited Away', year: 2001 },
-        { title: 'Saving Private Ryan', year: 1998 },
-        { title: 'Once Upon a Time in the West', year: 1968 },
-        { title: 'American History X', year: 1998 },
-        { title: 'Interstellar', year: 2014 },
-        { title: 'Casablanca', year: 1942 },
-        { title: 'City Lights', year: 1931 },
-        { title: 'Psycho', year: 1960 },
-        { title: 'The Green Mile', year: 1999 },
-        { title: 'The Intouchables', year: 2011 },
-        { title: 'Modern Times', year: 1936 },
-        { title: 'Raiders of the Lost Ark', year: 1981 },
-        { title: 'Rear Window', year: 1954 },
-        { title: 'The Pianist', year: 2002 },
-        { title: 'The Departed', year: 2006 },
-        { title: 'Terminator 2: Judgment Day', year: 1991 },
-        { title: 'Back to the Future', year: 1985 },
-        { title: 'Whiplash', year: 2014 },
-        { title: 'Gladiator', year: 2000 },
-        { title: 'Memento', year: 2000 },
-        { title: 'The Prestige', year: 2006 },
-        { title: 'The Lion King', year: 1994 },
-        { title: 'Apocalypse Now', year: 1979 },
-        { title: 'Alien', year: 1979 },
-        { title: 'Sunset Boulevard', year: 1950 },
-        {
-          title: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
-          year: 1964,
-        },
-        { title: 'The Great Dictator', year: 1940 },
-        { title: 'Cinema Paradiso', year: 1988 },
-        { title: 'The Lives of Others', year: 2006 },
-        { title: 'Grave of the Fireflies', year: 1988 },
-        { title: 'Paths of Glory', year: 1957 },
-        { title: 'Django Unchained', year: 2012 },
-        { title: 'The Shining', year: 1980 },
-        { title: 'WALL·E', year: 2008 },
-        { title: 'American Beauty', year: 1999 },
-        { title: 'The Dark Knight Rises', year: 2012 },
-        { title: 'Princess Mononoke', year: 1997 },
-        { title: 'Aliens', year: 1986 },
-        { title: 'Oldboy', year: 2003 },
-        { title: 'Once Upon a Time in America', year: 1984 },
-        { title: 'Witness for the Prosecution', year: 1957 },
-        { title: 'Das Boot', year: 1981 },
-        { title: 'Citizen Kane', year: 1941 },
-        { title: 'North by Northwest', year: 1959 },
-        { title: 'Vertigo', year: 1958 },
-        {
-          title: 'Star Wars: Episode VI - Return of the Jedi',
-          year: 1983,
-        },
-        { title: 'Reservoir Dogs', year: 1992 },
-        { title: 'Braveheart', year: 1995 },
-        { title: 'M', year: 1931 },
-        { title: 'Requiem for a Dream', year: 2000 },
-        { title: 'Amélie', year: 2001 },
-        { title: 'A Clockwork Orange', year: 1971 },
-        { title: 'Like Stars on Earth', year: 2007 },
-        { title: 'Taxi Driver', year: 1976 },
-        { title: 'Lawrence of Arabia', year: 1962 },
-        { title: 'Double Indemnity', year: 1944 },
-        {
-          title: 'Eternal Sunshine of the Spotless Mind',
-          year: 2004,
-        },
-        { title: 'Amadeus', year: 1984 },
-        { title: 'To Kill a Mockingbird', year: 1962 },
-        { title: 'Toy Story 3', year: 2010 },
-        { title: 'Logan', year: 2017 },
-        { title: 'Full Metal Jacket', year: 1987 },
-        { title: 'Dangal', year: 2016 },
-        { title: 'The Sting', year: 1973 },
-        { title: '2001: A Space Odyssey', year: 1968 },
-        { title: "Singin' in the Rain", year: 1952 },
-        { title: 'Toy Story', year: 1995 },
-        { title: 'Bicycle Thieves', year: 1948 },
-        { title: 'The Kid', year: 1921 },
-        { title: 'Inglourious Basterds', year: 2009 },
-        { title: 'Snatch', year: 2000 },
-        { title: '3 Idiots', year: 2009 },
-        { title: 'Monty Python and the Holy Grail', year: 1975 },
-      ];
-    return (
-        <div>
-            <Box>
-            <InputLabel >Gaining Suppliers</InputLabel>
-            <br/>
-                <FormControlLabel  control={<Checkbox defaultChecked />} label=" Show Dialed AccessNo Suppliers " />
-                <br/>
-                <FormControlLabel  control={<Checkbox />} label=" Show Network address Suppliers " />
-            </Box>
-            <br/>
-            <Box>
-            <InputLabel >Additional Parameters</InputLabel>
-            <br/>
-                <FormControlLabel  control={<Checkbox defaultChecked />} label=" Show External Code " />
-                <br/>
-                <FormControlLabel  control={<Checkbox />} label=" SMS Service " />
-                <br/>
-                <br/>
-                <div>
-                  
-                <label>Date created From :</label><br/>
-                <input type="date" /><br/>
-                <label>Date created To :</label><br/>
-                <input type="date"/>
-                </div>
-            </Box>
-      
-        </div>
-    )
-}
+  const [state1, setState1] = useContext(Context1);
+
+  const [open, setOpen] = React.useState(false);
+  // const theme = useTheme();
+  //const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setState1({
+      ...state1,
+      [name]: event.target.checked,
+    });
+  };
+  const useStyle = makeStyles((theme) => ({
+    rootClass: {
+      "& .MuiTypography-root": {
+        width: "auto",
+
+        //ml: "3",
+      },
+    },
+  }));
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    // setOpen(true);
+    //handleClickOpen();
+    e.preventDefault();
+    axios
+      .post("http://localhost:8083/create", state1)
+      .then((res) => {
+        // console.log("response in gui ",res.data)
+        FileDownload(res.data, "generatedReport.csv");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setState1(initialValues);
+  };
+
+  const classes = useStyle();
+  return (
+    <ThemeProvider theme={theme}>
+      <Grid container sx={{ marginLeft: "7%" }}>
+        <Grid
+          item
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          className={classes.rootClass}
+          //backgroundColor="red"
+          justifyContent="center"
+          alignItems="flex-start"
+        >
+          <Typography
+            align="left"
+            color="secondary"
+            style={{
+              marginLeft: "40px",
+              marginTop: "10px",
+              fontWeight: "bold",
+            }}
+          >
+            Product Type:
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", ml: 12 }}>
+            <FormGroup>
+              <FormControlLabel
+                // sx={{ m: 15 }}
+                label="National"
+                labelPlacement="end"
+                control={
+                  <Checkbox
+                    name="product_type_n_i_col1"
+                    //style={{ color: "#5514B4" }}
+                    checked={state1.product_type_n_i_col1 ? true : false}
+                    // style={{ paddingLeft: "10px" }}
+                    color="primary"
+                  />
+                }
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                // sx={{ m: 1 }}
+                label="International"
+                labelPlacement="end"
+                control={
+                  <Checkbox
+                    color={"primary"}
+                    //style={{ color: "#5514B4" }}
+                    name="product_type_i_i_col1"
+                    checked={state1.product_type_i_i_col1 ? true : false}
+                  />
+                }
+                onChange={handleChange}
+              />
+            </FormGroup>
+          </Box>
+          <br />
+        </Grid>
+        <Grid
+          item
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          className={classes.rootClass}
+        >
+          <Typography
+            align="left"
+            color="secondary"
+            style={{
+              marginLeft: "40px",
+              fontWeight: "bold",
+            }}
+          >
+            Additional Parameters:
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", ml: 12 }}>
+            <FormGroup>
+              <FormControlLabel
+                // sx={{ m: 1 }}
+                labelPlacement="end"
+                control={
+                  <Checkbox
+                    //style={{ color: "#5514B4" }}
+                    name="show_external_code"
+                    checked={state1.show_external_code ? true : false}
+                    color="primary"
+                  />
+                }
+                label=" Show External Code "
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                labelPlacement="end"
+                control={
+                  <Checkbox
+                    //style={{ color: "#5514B4" }}
+                    color="primary"
+                    name="sms_service"
+                    checked={state1.sms_service ? true : false}
+                  />
+                }
+                label=" SMS Service "
+                onChange={handleChange}
+              />
+            </FormGroup>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          className={classes.rootClass}
+        >
+          <br />
+          <Typography
+            align="left"
+            color="secondary"
+            style={{
+              marginLeft: "40px",
+              fontWeight: "bold",
+            }}
+          >
+            Gaining Suppliers:
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", ml: 12 }}>
+            <FormGroup>
+              <FormControlLabel
+                // sx={{ m: 1 }}
+                control={
+                  <Checkbox
+                    //style={{ color: "#5514B4" }}
+                    name="show_dialed_access_no"
+                    checked={state1.show_dialed_access_no ? true : false}
+                    color="primary"
+                  />
+                }
+                label=" Show Dialed AccessNo Suppliers "
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                // sx={{ m: 1 }}
+
+                control={
+                  <Checkbox
+                    //style={{ color: "#5514B4" }}
+                    name="show_network_address_suppliers"
+                    checked={
+                      state1.show_network_address_suppliers ? true : false
+                    }
+                    color="primary"
+                  />
+                }
+                label=" Show Network Address Suppliers "
+                onChange={handleChange}
+                //color="#5514B4"
+              />
+            </FormGroup>
+          </Box>
+        </Grid>
+
+        <Grid item justifyContent={"center"}>
+          <Button
+            //align="right"
+            sx={{
+              marginTop: 10,
+              backgroundColor: "#5514B4",
+              marginLeft: "-50px",
+            }}
+            variant="contained"
+            onClick={
+              // ()=>{
+              // console.log(state1);
+              // setState1(initialValues)}
+              handleSubmit
+            }
+          >
+            submit
+          </Button>
+          {/* <Dialog
+              // fullScreen={fullScreen}
+              open={open}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title">
+                {"Downloading in progress..."}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText>please wait...</DialogContentText>
+              </DialogContent>
+            </Dialog>
+            {/* <Button onClick={downloadCsv}>download</Button>
+          <Dialog
+            // fullScreen={fullScreen}
+            open={open}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <DialogTitle id="responsive-dialog-title">
+              {"Downloading in progress..."}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>please wait...</DialogContentText>
+            </DialogContent>
+          </Dialog> */}
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+};
