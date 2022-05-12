@@ -19,6 +19,7 @@ import { Button } from "@mui/material";
 import { Context1 } from "../GlobalData/Storereport";
 import DatesCol from "./DatesCol";
 
+import Wrap from "../Wrap";
 const useStyle = makeStyles((theme) => ({
   backgroundColourClass: {
     backgroundColor: "#eee",
@@ -39,6 +40,10 @@ const useStyle = makeStyles((theme) => ({
       width: "90%",
       //backgroundColor: "red",
     },
+    "& .MuiBox-root-19": {
+      display: "flex",
+      justifyContent: "center",
+    },
   },
 }));
 
@@ -53,32 +58,7 @@ function Combine() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Grid sx={{ backgroundColor: "rgb(215, 215, 215)" }}>
-        <Paper
-          component={Box}
-          sx={{
-            backgroundColor: "#5514B4",
-            width: "100%",
-            height: "150px",
-            borderRadius: "0px",
-          }}
-          style={{ position: "relative", zIndex: "1" }}
-        >
-          <Typography
-            variant="h6"
-            align="left"
-            style={{
-              color: "white",
-              // paddingTop: "30px",
-              paddingTop: "40px",
-              marginBottom: "20px",
-              marginLeft: "90px",
-              // fontWeight: "Bold",
-            }}
-          >
-            CUSTOMER REPORT
-          </Typography>
-        </Paper>
+      <Wrap heading="CUSTOMER REPORT">
         <Container
           component={Box}
           style={{
@@ -87,12 +67,16 @@ function Combine() {
             // marginTop: "-80px",
             //marginTop: "-50px",
             marginTop: "-70px",
-            marginLeft: "4.5%",
-            marginRight: "4.5%",
+            //marginLeft: "10px",
+            //marginRight: "4.5%",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           <Paper
             //alignSelf="center"
+            display="flex"
+            justifyContent=" center"
             elevation={4}
             component={Box}
             sx={{
@@ -102,17 +86,6 @@ function Combine() {
               //marginTop: "100px",
             }}
             p={4}
-
-            //style={
-            // {
-            //backgroundImage:
-            // "linear-gradient(to right top, #ededed, #ededed, #ededed, #ededed, #ededed, #e8e7ee, #e4e1f0, #e0dbf1, #d8cdf3, #d0c0f5, #cab2f5, #c4a3f5)",
-            // backgroundImage:
-            //   "linear-gradient(to right top, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d6d5dc, #d3d0df, #d1cce2, #ccc2e8, #c9b8ed, #c6aef1, #c4a3f5)",
-            // backgroundImage:
-            //   "linear-gradient(to right top, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d6d5dc, #d3d0df, #d1cce2, #ccc2e8, #c9b8ed, #c6aef1, #c4a3f5);background-image: linear-gradient(to right top, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d6d5dc, #d3d0df, #d1cce2, #ccc2e8, #c9b8ed, #c6aef1, #c4a3f5)",
-            //}
-            //}
           >
             <form className={classes.rootClass}>
               <Grid container>
@@ -143,7 +116,8 @@ function Combine() {
             </form>
           </Paper>
         </Container>
-      </Grid>
+        {/* </Grid> */}
+      </Wrap>
     </ThemeProvider>
   );
 }

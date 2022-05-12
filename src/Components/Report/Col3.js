@@ -8,15 +8,9 @@ import { Checkbox } from "@material-ui/core";
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
 import FormGroup from "@mui/material/FormGroup";
-
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import { Button } from "@mui/material";
+import { Button } from "@material-ui/core";
 import { Context1 } from "../GlobalData/Storereport";
 
 import FileDownload from "js-file-download";
@@ -32,8 +26,6 @@ export const Col3 = () => {
   const [state1, setState1] = useContext(Context1);
 
   const [open, setOpen] = React.useState(false);
-  // const theme = useTheme();
-  //const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -49,6 +41,7 @@ export const Col3 = () => {
 
         //ml: "3",
       },
+      
     },
   }));
   const handleClickOpen = () => {
@@ -244,11 +237,14 @@ export const Col3 = () => {
         <Grid item justifyContent={"center"}>
           <Button
             //align="right"
-            sx={{
-              marginTop: 10,
-              backgroundColor: "#5514B4",
-              marginLeft: "-50px",
-            }}
+            color="primary"
+            style={{marginTop: "5rem", marginLeft: "-50px"}}
+            // sx={{
+            //   marginTop: 10,
+            //   backgroundColor: "#5514B4",
+            //   marginLeft: "-50px",
+            // }}
+            color="primary"
             variant="contained"
             onClick={
               // ()=>{
@@ -259,31 +255,6 @@ export const Col3 = () => {
           >
             submit
           </Button>
-          {/* <Dialog
-              // fullScreen={fullScreen}
-              open={open}
-              aria-labelledby="responsive-dialog-title"
-            >
-              <DialogTitle id="responsive-dialog-title">
-                {"Downloading in progress..."}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText>please wait...</DialogContentText>
-              </DialogContent>
-            </Dialog>
-            {/* <Button onClick={downloadCsv}>download</Button>
-          <Dialog
-            // fullScreen={fullScreen}
-            open={open}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogTitle id="responsive-dialog-title">
-              {"Downloading in progress..."}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>please wait...</DialogContentText>
-            </DialogContent>
-          </Dialog> */}
         </Grid>
       </Grid>
     </ThemeProvider>

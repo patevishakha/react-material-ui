@@ -15,7 +15,6 @@ import {
   ListItemText,
   ListItemIcon,
   ListItem,
-  ListItemButton,
   Collapse,
 } from "@mui/material";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -23,11 +22,9 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import InfoIcon from "@mui/icons-material/Info";
-import DraftsIcon from "@mui/icons-material/Drafts";
 import HomeIcon from "@mui/icons-material/Home";
-import PersonIcon from "@mui/icons-material/Person";
+
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
@@ -40,6 +37,17 @@ import StepperApi from "./StepperApi";
 import Combine from "./Report/Combine";
 import Employees from "./AccessNo/pages/Employees";
 
+// import Tab from '@material-ui/core/Tab';
+// import TabContext from "@material-ui/core/TabContext"
+// import TabList from "@material-ui/core/TabList"
+// import TabPanel from "@material-ui/core/TabPanel"
+
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import Tabs from "@mui/material/Tabs";
+
 import Storereport from "./GlobalData/Storereport";
 const drawerWidth = 240;
 
@@ -51,6 +59,23 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     // color: "red",
   },
+  indicator: {
+    backgroundColor: "white",
+    height: "10px",
+    top: "45px",
+  },
+  tabStyles: {
+    "&.Mui-selected": {
+      //backgroundColor:"rgb(215,215,215)",
+      backgroundColor: "#ededed",
+      textShadow: " white 0px 7px 6px",
+      color: "#5514b4",
+      outline: "none",
+      borderRight: "2px solid #5514b4",
+      //borderRadius:"10px",
+      fontWeight: "bolder",
+    },
+  },
 }));
 
 export default function Persistant() {
@@ -59,6 +84,12 @@ export default function Persistant() {
   const [open, setOpen] = React.useState(false);
   const [expandlist, setexpandlist] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -285,8 +316,112 @@ export default function Persistant() {
 
         <Main open={open} sx={{ padding: "0px" }}>
           <DrawerHeader />
-          {/* <div  className={classes.toolbarMargin}/> */}
-          <Routes>
+
+          <TabContext value={value}>
+            <Box
+              sx={{
+                height: "50px",
+                //borderBottom: 1,
+                //borderColor: "#fff",
+                backgroundColor: "#5514b4",
+                //backgroundImage: "linear-gradient(to right, #d7d7d7, #bcb5d5, #a394d1, #8b72ca, #744fc2, #744fc2, #744fc2, #744fc2, #8b72ca, #a394d1, #bcb5d5, #d7d7d7)",
+              }}
+            >
+              {/* <Box sx={{ borderBottom: 1, borderColor: "divider",backgroundColor:"#fff", 
+
+        }}> */}
+              <TabList
+                variant="fullWidth"
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                textColor="#5514B4"
+                indicatorColor="#5514B4"
+                selectionFollowsFocus
+                TabIndicatorProps={{
+                  sx: { backgroundColor: "rgb(215,215,215)", height: 2 },
+                }}
+              >
+                <Tab
+                  label="Item One"
+                  value="1"
+                  className={classes.tabStyles}
+                  sx={{
+                    color: "rgb(215,215,215)",
+                    fontWeight: "bold",
+                    borderRight: "1px solid rgb(215, 215, 215)",
+                    borderBottom: "1px solid rgb(215, 215, 215)",
+                  }}
+                  //sx={{color:"#5514B4"}}
+                  // icon={<Divider orientation="vertical" />}
+                />
+                <Tab
+                  label="Item Two"
+                  value="2"
+                  className={classes.tabStyles}
+                  sx={{
+                    color: "rgb(215,215,215)",
+                    fontWeight: "bold",
+                    borderRight: "1px solid rgb(215, 215, 215)",
+                    borderBottom: "1px solid rgb(215, 215, 215)",
+                  }}
+                  //sx={{color:"#5514B4"}}
+                />
+                <Tab
+                  label="Item Three"
+                  value="3"
+                  className={classes.tabStyles}
+                  sx={{
+                    color: "rgb(215,215,215)",
+                    fontWeight: "bold",
+                    borderRight: "1px solid rgb(215, 215, 215)",
+                    borderBottom: "1px solid rgb(215, 215, 215)",
+                  }}
+                  //sx={{color:"#5514B4"}}
+                />
+                <Tab
+                  label="Item Four"
+                  value="4"
+                  className={classes.tabStyles}
+                  sx={{
+                    color: "rgb(215,215,215)",
+                    fontWeight: "bold",
+                    borderRight: "1px solid rgb(215, 215, 215)",
+                    borderBottom: "1px solid rgb(215, 215, 215)",
+                  }}
+                  //sx={{color:"#5514B4"}}
+                />
+                <Tab
+                  label="Item Five"
+                  value="5"
+                  className={classes.tabStyles}
+                  sx={{
+                    color: "rgb(215,215,215)",
+                    fontWeight: "bold",
+                    borderRight: "1px solid rgb(215, 215, 215)",
+                    borderBottom: "1px solid rgb(215, 215, 215)",
+                  }}
+                  //sx={{color:"#5514B4"}}
+                />
+              </TabList>
+            </Box>
+            <TabPanel value="1" sx={{ padding: "0px" }}>
+              <Routes>
+                <Route path="/" element={`Home Tab`} sx={{ color: "#fff" }} />
+                <Route path="general" element={`General Tab`} />
+                <Route path="general/Reports" element={<Combine />} />
+                <Route path="general/WorkFlow" element={<StepperApi />} />
+                <Route path="general/AccessNo" element={<Employees />} />
+
+                <Route path="info" element={`This is Info Page`} />
+              </Routes>
+            </TabPanel>
+            <TabPanel value="2">Item Two</TabPanel>
+            <TabPanel value="3">Item Three</TabPanel>
+            <TabPanel value="4">Item Four</TabPanel>
+            <TabPanel value="5">Item Five</TabPanel>
+          </TabContext>
+
+          {/* <Routes>
             <Route path="/" element={`Home Tab`} />
             <Route path="general" element={`General Tab`} />
             <Route path="general/Reports" element={<Combine />} />
@@ -294,7 +429,7 @@ export default function Persistant() {
             <Route path="general/AccessNo" element={<Employees />} />
 
             <Route path="info" element={`This is Info Page`} />
-          </Routes>
+          </Routes> */}
           {/* <AllComponent/> */}
         </Main>
       </BrowserRouter>
