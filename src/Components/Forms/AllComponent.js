@@ -14,7 +14,8 @@ const useStyle = makeStyles(theme=>({
             backgroundColor: '#eee',
     },
     typographyClass: {
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+        color: "#5514B4",
       },
     rootClass : {
 
