@@ -99,13 +99,14 @@ function StepperApi() {
 
   return (
     <>
+      <Wrap heading="WORKFLOW">
       <Grid
         container
         direction="row"
         className={`${classes.rootClass} ${classes.customTextField}`}
       >
         <CssBaseline />
-        <Wrap heading="WORKFLOW">
+      
           <Container
             component={Box}
             style={{
@@ -173,8 +174,8 @@ function StepperApi() {
               )}
             </Paper>
           </Container>
-        </Wrap>
       </Grid>
+        </Wrap>
     </>
   );
 }
