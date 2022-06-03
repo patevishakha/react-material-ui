@@ -166,8 +166,8 @@ export default function Persistant() {
                 ".css-bshv44-MuiButtonBase-root-MuiListItem-root":{
                   paddingLeft : "5px",
                   paddingRight : "5px",
-                  paddingTop : "1px",
-                  paddingBottom : "1px",
+                  paddingTop : "0px",
+                  paddingBottom : "0px",
 
                   "& .MuiTypography-root": {
                       // text in front of icon
@@ -283,7 +283,7 @@ export default function Persistant() {
                       selected={selectedIndex1 === 17}
                       onClick={(event) => handleClickOnSelectedItem(event, 17)}
                     >
-                      <ListItemText primary="Call Simulator" />
+                      <ListItemText primary="Call Simulator Plan" />
                     </ListItem>
                     <ListItem button component={Link}
                       to="/references/bpm"
