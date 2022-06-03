@@ -7,13 +7,14 @@ import { ThemeProvider ,makeStyles} from "@material-ui/core/styles";
 import Wrap from '../Wrap';
 import StaticFavTemplate from '../FavouritesTemplates/StaticFavTemplate';
 
-function Details() {
-    console.log("Details called");
+
+function EndPoints() {
+    console.log("EndPoints called");
   return (
     <>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Wrap heading="DETAILS">
+      <Wrap heading="ENDPOINTS">
         <Container
           component={Box}
           style={{
@@ -41,12 +42,12 @@ function Details() {
               //marginTop: "100px",
             }}
             p={4}>
-          <StaticFavTemplate name ='Details' label="Details"  space = {11}>
+
+          <StaticFavTemplate name ='EndPoints' label="End Points"  space = {11}>
             <Box sx={{width: "90%",}}>  
-                <Typography>This is Details Page</Typography>   
+                <Typography>This is EndPoints Page</Typography>   
             </Box>
-          </StaticFavTemplate>  
-         
+          </StaticFavTemplate>
           </Paper>
         </Container>
       
@@ -56,4 +57,4 @@ function Details() {
   )
 }
 
-export default Details;
+export default EndPoints;
