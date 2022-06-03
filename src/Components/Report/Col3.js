@@ -14,6 +14,7 @@ import { Button } from "@material-ui/core";
 import { Context1 } from "../GlobalData/Storereport";
 
 import FileDownload from "js-file-download";
+import { trackPromise } from "react-promise-tracker";
 import { initialValues } from "../GlobalData/Storereport";
 import axios from "axios";
 import theme from "../Theme";
@@ -21,7 +22,7 @@ import theme from "../Theme";
 import { makeStyles } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, createStyles } from "@material-ui/core/styles";
 export const Col3 = () => {
   const [state1, setState1] = useContext(Context1);
 
@@ -41,9 +42,48 @@ export const Col3 = () => {
 
         //ml: "3",
       },
-      
     },
   }));
+
+  const buttonStyles = makeStyles((theme) =>
+    createStyles({
+      button: {
+        position: "relative",
+        marginTop: "5rem",
+        //marginLeft: "-50px",
+        //width: "100%",
+        [theme.breakpoints.up("sm")]: {
+          marginLeft: theme.spacing(-5),
+        },
+        [theme.breakpoints.down("sm")]: {
+          marginTop: "2rem",
+          marginLeft: theme.spacing(30),
+        },
+      },
+      gridsty: {
+        //position: "relative",
+        [theme.breakpoints.up("sm")]: {
+          marginLeft: theme.spacing(12),
+        },
+        [theme.breakpoints.down("sm")]: {
+          //marginTop: "2rem",
+          marginLeft: theme.spacing(5),
+        },
+      },
+      typography: {
+        [theme.breakpoints.up("sm")]: {
+          marginLeft: theme.spacing(5),
+        },
+        [theme.breakpoints.down("sm")]: {
+          marginLeft: theme.spacing(-1),
+        },
+        // [theme.breakpoints.down("md")]: {
+        //   marginLeft: theme.spacing(1),
+        // },
+      },
+    })
+  );
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -56,19 +96,28 @@ export const Col3 = () => {
     // setOpen(true);
     //handleClickOpen();
     e.preventDefault();
-    axios
-      .post("http://localhost:8083/create", state1)
+    axios.defaults.baseURL = 'http://172.25.25.100:8083/';   
+    trackPromise(
+	  axios({
+    method:'post',
+    url:'create',
+    //baseURL: '',
+    	data: state1
+    	   })     
+//axios
+     // .post("create", state1)
       .then((res) => {
         // console.log("response in gui ",res.data)
         FileDownload(res.data, "generatedReport.csv");
       })
       .catch((err) => {
         console.log(err);
-      });
+      }));
     setState1(initialValues);
   };
 
   const classes = useStyle();
+  const buttoncls = buttonStyles();
   return (
     <ThemeProvider theme={theme}>
       <Grid container sx={{ marginLeft: "7%" }}>
@@ -86,15 +135,23 @@ export const Col3 = () => {
           <Typography
             align="left"
             color="secondary"
+            className={buttoncls.typography}
             style={{
-              marginLeft: "40px",
+              //marginLeft: "40px",
               marginTop: "10px",
               fontWeight: "bold",
             }}
           >
             Product Type:
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", ml: 12 }}>
+          <Box
+            className={buttoncls.gridsty}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              //ml: 12
+            }}
+          >
             <FormGroup>
               <FormControlLabel
                 // sx={{ m: 15 }}
@@ -140,14 +197,18 @@ export const Col3 = () => {
           <Typography
             align="left"
             color="secondary"
+            className={buttoncls.typography}
             style={{
-              marginLeft: "40px",
+              //marginLeft: "40px",
               fontWeight: "bold",
             }}
           >
             Additional Parameters:
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", ml: 12 }}>
+          <Box
+            sx={{ display: "flex", flexDirection: "column" }}
+            className={buttoncls.gridsty}
+          >
             <FormGroup>
               <FormControlLabel
                 // sx={{ m: 1 }}
@@ -191,14 +252,18 @@ export const Col3 = () => {
           <Typography
             align="left"
             color="secondary"
+            className={buttoncls.typography}
             style={{
-              marginLeft: "40px",
+              //marginLeft: "40px",
               fontWeight: "bold",
             }}
           >
             Gaining Suppliers:
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", ml: 12 }}>
+          <Box
+            sx={{ display: "flex", flexDirection: "column" }}
+            className={buttoncls.gridsty}
+          >
             <FormGroup>
               <FormControlLabel
                 // sx={{ m: 1 }}
@@ -238,20 +303,9 @@ export const Col3 = () => {
           <Button
             //align="right"
             color="primary"
-            style={{marginTop: "5rem", marginLeft: "-50px"}}
-            // sx={{
-            //   marginTop: 10,
-            //   backgroundColor: "#5514B4",
-            //   marginLeft: "-50px",
-            // }}
-            color="primary"
+            className={buttoncls.button}
             variant="contained"
-            onClick={
-              // ()=>{
-              // console.log(state1);
-              // setState1(initialValues)}
-              handleSubmit
-            }
+            onClick={handleSubmit}
           >
             submit
           </Button>

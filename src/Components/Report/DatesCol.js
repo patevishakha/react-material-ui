@@ -8,7 +8,8 @@ import PickersDay, {
   PickersDayProps,
   pickersDayClasses,
 } from "@mui/lab/PickersDay";
-const renderWeekPickerDay = (
+
+export const renderWeekPickerDay = (
   date: Date,
   selectedDates: Array<Date | null>,
   pickersDayProps: PickersDayProps<Date>
@@ -44,7 +45,7 @@ const DatesCol = () => {
             Date Created From:
           </Typography>
         </Grid> */}
-        <Grid lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <DatePicker
             // className={classes.DatePicker}
             renderDay={renderWeekPickerDay}
@@ -84,7 +85,7 @@ const DatesCol = () => {
             Date Created To:
           </Typography>
         </Grid> */}
-        <Grid lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <DatePicker
             renderDay={renderWeekPickerDay}
             value={state1.date_created_to}
