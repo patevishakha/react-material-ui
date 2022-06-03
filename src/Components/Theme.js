@@ -1,30 +1,24 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme} from '@material-ui/core/styles';
 
 const theme = createTheme({
-  // palette: {
-  //   primary : {
-  //     main : '#6A359C',
-  //     light : '#e7feff'
-  palette: {
-    primary: { main: "#5514B4" },
-    secondary: { main: "#4d5151" },
-    //secondary:{main:"#000000"}
-  },
+    // palette: {
+    //   primary : {
+    //     main : '#6A359C',
+    //     light : '#e7feff'
 
-  // typography: {
-  //     fontFamily: [
-  //       "BT Font Regular", "Calibri", "Arial", "sans-serif"
-  //     ].join(",")
-  //   }
+    palette: {
+      primary: { main: "#5514B4" },
+      secondary: { main: "#4d5151" },
+    },
+        
+    //   },
+    //   secondary: {
+    //       //Orange
+    //     light: '#ff7961',
+    //     main: '#f44336',
+    //     dark: '#ba000d',
+    //   },
+    // },
+  });
 
-  //   },
-  //   secondary: {
-  //       //Orange
-  //     light: '#ff7961',
-  //     main: '#f44336',
-  //     dark: '#ba000d',
-  //   },
-  // },
-});
-
-export default theme;
+export default theme;  
