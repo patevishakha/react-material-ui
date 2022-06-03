@@ -127,7 +127,7 @@ const originalrows = [
   createData("id_20", "User 5", "N", "15-05-2020"),
 ];
 
-function AccessNo() {
+function RoutingPlan() {
 
   const editCell=(e,e_id)=>{
     console.log("Edit Button CLicked");
@@ -184,12 +184,71 @@ function AccessNo() {
                     <UploadIcon style={{color: "#5514B4",height:"30px",width:"30px"}}/>
                 </Button>
               </Tooltip>
-              <StaticFavTemplate name ='AccessNo' label="Access No"  space = {11}/>
+              <StaticFavTemplate name ='Routing Plan' label="Routing Plan"  space = {11}/>
             </Box>
 
-            <Box sx={{marginTop:"1%",border: "1px solid #5514B4",height:"400px"}}>
+            <Box sx={{marginTop:"1%",border: "1px solid #5514B4"}}>
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                <Typography style={{color:"#000",fontWeight:"bold"}}>Access No</Typography>
+              <TableContainer sx={{height:"450px"}}>
+                <Table sx={{ height: "max-content"}} stickyHeader aria-label="simple table">
+      
+                  <TableHead>
+                    <StyledTableRow>
+                      <StyledTableCell align="right">Id</StyledTableCell>
+                      <StyledTableCell align="right">Name</StyledTableCell>
+                      <StyledTableCell align="right">Active</StyledTableCell>
+                      <StyledTableCell align="right">Date</StyledTableCell>
+                      <StyledTableCell align="right">Edit</StyledTableCell>
+                      <StyledTableCell align="right">Edit</StyledTableCell>
+                      <StyledTableCell align="right">Delete</StyledTableCell>
+                    </StyledTableRow>
+                  </TableHead>
+                  <TableBody sx={{padding:"0px"}}>
+                    {originalrows.map((row) => (
+                      <StyledTableRow
+                        hover
+                        key={row.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                        
+                      >
+                        <StyledTableCell
+                          align="right"
+                          component="th"
+                          scope="row"
+                        >
+                          {row.id}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {row.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {row.active}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {row.dategiven}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Button style={{color: "#5514B4"}} onClick={(e)=>editCell(row.id)}>
+                            <MenuIcon />
+                          </Button>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Button style={{color: "#5514B4"}} onClick={(e)=>editCell(row.id)}>
+                            <EditIcon />
+                          </Button>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Button style={{color: "#5514B4"}} onClick={(e)=>deleteCell(row.id)}>
+                            <DeleteIcon />
+                          </Button>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>  
               </Grid>
             
           </Box>
@@ -198,4 +257,4 @@ function AccessNo() {
   );
 }
 
-export default AccessNo;
+export default RoutingPlan;
