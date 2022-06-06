@@ -8,7 +8,7 @@ import {
 import Paper from "@material-ui/core/Paper";
 import SearchBar from "material-ui-search-bar";
 import Pagination from "@mui/material/Pagination";
-
+//import IconButton from '@mui/material/IconButton';
 import { renderWeekPickerDay } from "../Report/DatesCol";
 import {
   Grid,
@@ -28,6 +28,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { vi } from "date-fns/esm/locale";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../Theme";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 const food = [
   {
     name: "Pizza",
@@ -111,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "left",
 
     textAlign: "justify",
-    paddingLeft: "70px",
+    paddingLeft: "0px",
   },
   components: {
     MuiInputBase: {
@@ -134,7 +135,7 @@ function SearchBarUII() {
   const [prevRows, setPrevRows] = useState(originalRows);
   const [searched, setSearched] = useState("");
   const classes = useStyles();
-  const [state1, setState1] = useContext(Context1);
+  const [state1, setState1] = useState(initial);
   var default_date = new Date(
     "Sat Jan 01 2022 12:00:00 GMT+0530 (India Standard Time)"
   );
@@ -523,15 +524,16 @@ function SearchBarUII() {
                   border: "2px solid #5514b4",
                   borderRadius: "5px",
                   display: "flex",
+                  //marginLeft: "100px",
                   height: "40px",
                 }}
               >
                 <Grid
                   item
-                  xs={3}
-                  sm={3}
-                  md={3}
-                  lg={3}
+                  xs={2}
+                  sm={2}
+                  md={2}
+                  lg={2}
                   // className={classes.gridStyles}
                   // direction="row"
                   // justifyContent="center"
@@ -540,19 +542,15 @@ function SearchBarUII() {
                     justifyContent: "left",
                     alignSelf: "center",
                     // direction: "column",
-                    paddingLeft: "120px",
+                    paddingLeft: "90px",
+                    //backgroundColor: "cyan",
                   }}
                 >
                   <Typography
                     // className={`${classes.rootClass} ${classes.typographyClass}`}
                     variant="h7"
                     color="primary"
-                    // style={{
-                    //   display: "flex",
-                    //   justifyContent: "center",
-                    //   alignSelf: "center",
-                    //   // direction: "column",
-                    // }}
+                    style={{fontWeight:"bold"}}
                   >
                     Name
                   </Typography>
@@ -568,15 +566,17 @@ function SearchBarUII() {
                     display: "flex",
                     justifyContent: "left",
                     alignSelf: "center",
-                    paddingLeft: "100px",
+                    paddingLeft: "158px",
+                    //backgroundColor: "grey",
                     // direction: "column",
                   }}
                 >
-                  {/* <TableCell align="right">parent</TableCell> */}
+                  {/* <TableCell align="right">Parent</TableCell> */}
                   <Typography
                     // className={`${classes.rootClass} ${classes.typographyClass}`}
                     variant="h7"
                     color="primary"
+                    style={{fontWeight:"bold"}}
                     // style={{
                     //   display: "flex",
                     //   justifyContent: "center",
@@ -584,7 +584,7 @@ function SearchBarUII() {
                     //   // direction: "column",
                     // }}
                   >
-                    parent
+                    Parent
                   </Typography>
                 </Grid>
 
@@ -596,17 +596,19 @@ function SearchBarUII() {
                   lg={3}
                   style={{
                     display: "flex",
-                    justifyContent: "left",
+                    justifyContent: "center",
                     alignSelf: "center",
                     // direction: "column",
-                    paddingLeft: "60px",
+                    paddingLeft: "30px",
+                    //backgroundColor: "blue",
                   }}
                 >
                   {/* <TableCell align="right">Type&nbsp;(g)</TableCell> */}
                   <Typography
                     // className={`${classes.rootClass} ${classes.typographyClass}`}
-                    variant="h7"
+                    variant="subtitle1"
                     color="primary"
+                    style={{fontWeight:"bold"}}
                     // style={{
                     //   display: "flex",
                     //   justifyContent: "center",
@@ -619,15 +621,17 @@ function SearchBarUII() {
                 </Grid>
                 <Grid
                   item
-                  xs={3}
-                  sm={3}
-                  md={3}
-                  lg={3}
+                  xs={2}
+                  sm={2}
+                  md={2}
+                  lg={2}
+                  //className={classes.gridStyles}
                   style={{
                     display: "flex",
                     justifyContent: "left",
-                    paddingLeft: "35px",
+                    //paddingLeft: "-100px",
                     alignSelf: "center",
+                    //backgroundColor: "red",
                     // direction: "column",
                   }}
                 >
@@ -636,6 +640,7 @@ function SearchBarUII() {
                     // className={`${classes.rootClass} ${classes.typographyClass}`}
                     variant="h7"
                     color="primary"
+                    style={{fontWeight:"bold"}}
                     // style={{
                     //   display: "flex",
                     //   justifyContent: "center",
@@ -646,12 +651,27 @@ function SearchBarUII() {
                     Date Modified
                   </Typography>
                 </Grid>
+                <Grid
+                  item
+                  xs={1}
+                  sm={1}
+                  md={1}
+                  lg={1}
+                  //className={classes.gridStyles}
+                  style={{
+                    display: "flex",
+                    justifyContent: "left",
+                    //paddingLeft: "-100px",
+                    alignSelf: "center",
+                    // direction: "column",
+                  }}
+                ></Grid>
               </Grid>
               <div
                 style={{
                   padding: "0px",
                   width: "100%",
-                  height: "260px",
+                  height: "280px",
                 }}
               >
                 <div
@@ -659,7 +679,7 @@ function SearchBarUII() {
                     padding: "0px",
                     width: "100%",
                     //backgroundColor: "red",
-                    height: "200px",
+                    height: "230px",
                   }}
                 >
                   <List component="span">
@@ -670,7 +690,6 @@ function SearchBarUII() {
                         return (
                           <ListItem
                             key={projectItem.projectID}
-                            button
                             onClick={() => console.log("")}
                           >
                             <Grid
@@ -715,20 +734,20 @@ function SearchBarUII() {
                               </Grid>
                               <Grid
                                 item
-                                xs={3}
-                                sm={3}
-                                md={3}
-                                lg={3}
+                                xs={2}
+                                sm={2}
+                                md={2}
+                                lg={2}
                                 className={classes.gridStyles}
                               >
                                 {projectItem.ObjectType}
                               </Grid>
                               <Grid
                                 item
-                                xs={3}
-                                sm={3}
-                                md={3}
-                                lg={3}
+                                xs={2}
+                                sm={2}
+                                md={2}
+                                lg={2}
                                 className={classes.gridStyles}
                               >
                                 {/* <TableCell align="right"> */}
@@ -741,6 +760,26 @@ function SearchBarUII() {
                                     projectItem.date_modified.getFullYear()
                                   : "null"}
                                 {/* </TableCell> */}
+                              </Grid>
+                              <Grid
+                                item
+                                xs={1}
+                                sm={1}
+                                md={1}
+                                lg={1}
+                                //className={classes.gridStyles}
+                                style={{
+                                  display: "flex",
+                                  alignSelf: "center",
+                                  justifyContent: "right",
+
+                                  textAlign: "justify",
+                                  paddingLeft: "70px",
+                                }}
+                              >
+                                <IconButton aria-label="delete" size="small">
+                                  <OpenInNewIcon />
+                                </IconButton>
                               </Grid>
                             </Grid>
                             {/* <ListItemAvatar>
