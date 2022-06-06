@@ -145,6 +145,10 @@ export default function Persistant() {
                 ".css-bshv44-MuiButtonBase-root-MuiListItem-root.Mui-selected:hover":{
                     backgroundColor: "#e4d6fa",
                   },
+                ".css-h4y409-MuiList-root":{
+                  paddingBottom:"0px",
+                  paddingTop:"0px",
+                },  
                 ".css-1b954x2-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper":{
                   marginTop:"50px",
                 },
@@ -181,6 +185,7 @@ export default function Persistant() {
                     borderColor : "rgba(0,0,0,0.22)",
                    
                 },
+                
 
                 "& .MuiSvgIcon-root": {
                   // icon colour
@@ -453,10 +458,10 @@ export default function Persistant() {
             <Route path="references/WorkFlow" element={<StepperApi />} />
             <Route path="references/CorpScreen" element={<CorpScreen />}/>
             {/* <Route path="references/favourites" element={<SelectedFav/>} /> */}
-            <Route path="references/CorpScreen/AccessNo" element={<AccessNo/>}/>
+            {/* <Route path="references/CorpScreen/AccessNo" element={<AccessNo/>}/>
             <Route path="references/CorpScreen/RoutingPlan" element={<CorpScreen />}/>
             <Route path="references/CorpScreen/Details" element={<Details/>}/>
-            <Route path="references/CorpScreen/EndPoints" element={<EndPoints/>}/>
+            <Route path="references/CorpScreen/EndPoints" element={<EndPoints/>}/> */}
 
             {/* <Route path="general/Reports" element={<Combine />} />
             <Route path="general/WorkFlow" element={<StepperApi />} />
