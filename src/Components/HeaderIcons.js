@@ -20,13 +20,15 @@ const useStyles = makeStyles({
       // backgroundColor : '#fff',
       color : '#fff'
     },
+    
     rootclass:{
         '& .MuiMenu-paper':{
             // marginTop:"40px",
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             border : "2px solid #5514B4",
-            marginTop : "44px",
+            marginTop : "2px",
+            marginRight:"0px",
             '&:before': {
                     content: '""',
                     display: 'block',
@@ -40,6 +42,15 @@ const useStyles = makeStyles({
                     zIndex: 0,
                   },
             
+        },
+        '& .MuiListItem-root:hover':{
+            backgroundColor:"#7841c1",
+            color:"#fff",
+            fontWeight:"bold",
+            '& .MuiListItemIcon-root':{
+                color:"#fff",
+                fontWeight:"bold",
+            },
         },
         '& .MuiListItemIcon-root':{
             minWidth : "30px",
@@ -64,8 +75,10 @@ function HeaderIcons() {
         setAnchorElUser(null);
       };
 
-
-
+    const [selectedInSettingIcon,setSelectedInSettingIcon]=React.useState(0);
+    const handleSelectedItem=(event,index)=>{
+        setSelectedInSettingIcon(index);
+    }  
 
 
 
@@ -99,14 +112,18 @@ function HeaderIcons() {
                         </Tooltip>    
                         <Menu
                                 className={classes.rootclass}
+                                getContentAnchorEl={null}
                                 id="menu-appbar"
                                 anchorEl={anchorElUser}
                                 id="account-menu"
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                                 
-                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                transformOrigin={{ horizontal: 'left', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+
+                               
+                                
                             >
                                 {/* if setting is the array of eveything you want to display like : const settings = ['Profile', 'Settings','Dashboard', 'Logout'];
                                 
@@ -115,36 +132,36 @@ function HeaderIcons() {
                                     <Typography >{setting}</Typography>
                                 </MenuItem>
                                 ))} */}
-                                <MenuItem>
-                                    <ListItemIcon>
+                                <MenuItem onClick={(event) => handleSelectedItem(event, 1)}>
+                                    <ListItemIcon >
                                         <AccountCircleIcon fontSize="small" />
                                     </ListItemIcon>
                                     Profile
                                 </MenuItem>
 
-                                <MenuItem>
-                                    <ListItemIcon>
+                                <MenuItem onClick={(event) => handleSelectedItem(event, 2)}>
+                                    <ListItemIcon >
                                         <SettingsIcon fontSize="small" />
                                     </ListItemIcon>
                                     Settings
                                 </MenuItem>
 
-                                <MenuItem>
-                                    <ListItemIcon>
+                                <MenuItem onClick={(event) => handleSelectedItem(event, 3)}>
+                                    <ListItemIcon >
                                         <DashboardIcon fontSize="small" />
                                     </ListItemIcon>
                                     DashBoard
                                 </MenuItem>
 
-                                <MenuItem>
-                                    <ListItemIcon>
+                                <MenuItem onClick={(event) => handleSelectedItem(event, 4)}>
+                                    <ListItemIcon >
                                         <LogoutIcon fontSize="small" />
                                     </ListItemIcon>
                                     Logout
                                 </MenuItem>
 
-                                <MenuItem>
-                                    <ListItemIcon>
+                                <MenuItem onClick={(event) => handleSelectedItem(event, 5)}>
+                                    <ListItemIcon >
                                         {/* <LogoutIcon fontSize="small" /> */}
                                     </ListItemIcon>
                                     Help
