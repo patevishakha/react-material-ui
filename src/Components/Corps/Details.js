@@ -163,7 +163,7 @@ function Details
   return (
     <>
             
-            <StaticFavTemplate name ='EndPoints' label="End Points"  space = {11}/>
+            <StaticFavTemplate name ='Details' label="Details"  space = {11}/>
             <Box sx={{marginTop:"1%",border: "1px solid #5514B4",height:"500px"}}>
               <Grid item lg={12} md={12} sm={12} xs={12} >
                   <Typography style={{color:"#000",fontWeight:"bold"}}>Details Page</Typography>

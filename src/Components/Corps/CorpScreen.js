@@ -4,6 +4,7 @@ import { withStyles,ThemeProvider} from "@material-ui/core/styles";
 import Wrap from "../Wrap";
 import theme from '../Theme';
 
+import StaticFavTemplate from '../FavouritesTemplates/StaticFavTemplate';
 import Details from './Details';
 import RoutingPlan from "./RoutingPlan";
 import AccessNo from "./AccessNo";
@@ -21,24 +22,23 @@ const VerticalTabs = withStyles(theme => ({
 
 const MyTab = withStyles(theme => ({
   root: {
-    backgroundColor: "#e6d8f3",
-    borderRadius: "20px",
-    // marginTop:"4px",
+    backgroundColor: "#7841c1",
+    borderRadius: "0px 20px 20px 0px",
+    marginTop:"4px",
     padding:"4px",
     color:"#fff",
   },
-  wrapper: {
-    backgroundColor: "#5514B4",
-    padding: theme.spacing(1),
-    borderRadius: theme.shape.borderRadius
-  },
+  // wrapper: {
+  //   backgroundColor: "#5514B4",
+  //   padding: theme.spacing(1),
+  //   borderRadius: theme.shape.borderRadius
+  // },
   selected: {
     // color: "#5514B4",
     // border: "2px solid #5514B4",
     fontWeight:"bold",
     backgroundColor: "#5514B4",
     color:"#fff",
-    borderRadius: "10px",
   }
 }))(Tab);
 
@@ -92,11 +92,12 @@ function CorpStaticTabs(){
               //marginTop: "100px",
               overflow : "hidden"
             }}
+            paddingLeft="0px"
             p={4}
            
            
           >
-          {/* style={{backgroundColor:"#fff",height:"520px",marginTop:"3%"}} */}
+          {/* style={{backgroundColor:"#fff",height:"520px",marginTop:"3%"}} */}  
         <Grid item lg={2} xs={2} style={{marginTop:"15%"}}>
         <VerticalTabs value={activetab} onChange={handleChange}>
           <MyTab label="Details" />
@@ -105,12 +106,14 @@ function CorpStaticTabs(){
           <MyTab label="End Points"/>
         </VerticalTabs>
         </Grid>
-        <Grid item lg={10} xs={10}  style={{}}>
+        
+        <Grid item lg={10} xs={10}  style={{marginLeft:"1%"}}>
         {activetab === 0 && <TabContainer><Details/></TabContainer>}
         {activetab === 1 && <TabContainer><RoutingPlan/></TabContainer>}
         {activetab === 2 && <TabContainer><AccessNo/></TabContainer>}
         {activetab === 3 && <TabContainer><EndPoints/></TabContainer>}
         </Grid>
+       
         
       </Paper>
       </Container>
