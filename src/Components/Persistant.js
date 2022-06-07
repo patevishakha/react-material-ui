@@ -117,7 +117,7 @@ export default function Persistant() {
           <Typography variant="h5" noWrap component="div" sx={{marginLeft:"1%"}}>
             Call Traffic Controller
           </Typography>
-          <Box sx={{marginLeft:"60%"}}>
+          <Box sx={{marginLeft:"55%"}}>
             {/* <SearchBarCompo  /> */}
             <HeaderIcons/>
           </Box>
