@@ -82,7 +82,7 @@ function Home() {
                             console.log(notification.content);
                           }}
                           theme={newtheme}
-                          defaultIsOpen
+                          //defaultIsOpen
                           bellCounter="unread"
                         >
                           {(props) => (
